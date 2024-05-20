@@ -14,4 +14,4 @@ Usage
 Control your character with the arrow keys, collect coins, and dodge or defeat chickens. Enjoy playing!
 
 Contributors
-thomas Winkler - Developer
+Thomas Winkler - Developer
