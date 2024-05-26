@@ -12,11 +12,13 @@ class Chicken extends MovableObject{
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
         this.x = 200 + Math.random() * 500; //spawnen zufällig in einer range von 200px bis 700px
         this.loadImages(this.IMAGES_WALKING);
+        this.speed = 0.15 + Math.random() * 0.25;
         this.animate();
     }
 
 
     animate() {
+        this.moveLeft();
         setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length; //let i = 0 % 6 => 0, rest 6 0 % 6 => 0, rest 6 / 3 % 6 => 0, rest 3 / 6 % 6 => 1, rest 0 / 7 % 6 => 1, rest 1
             //i = 0,1,2,3,4,5,0,1,2,3,4,5

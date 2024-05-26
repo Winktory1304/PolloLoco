@@ -2,6 +2,7 @@ class Clouds extends MovableObject {
     height = 250;
     y = 20;
     width = 250;
+    
 
 
     constructor() {
@@ -10,14 +11,16 @@ class Clouds extends MovableObject {
         this.animate();
     }
     animate() {
-        const animateCloud = () => {
-            this.x -= 0.15;
-            requestAnimationFrame(animateCloud);
-        }
-        animateCloud();
+        this.moveLeft();
     }
-    
+
+
+
 }
 
 
-
+// const animateCloud = () => {
+//     this.x -= this.speed;
+//     requestAnimationFrame(animateCloud);
+// }
+// animateCloud();
