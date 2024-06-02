@@ -11,7 +11,8 @@ class Character extends MovableObject {
         'img/2_character_pepe/2_walk/W-24.png',
         'img/2_character_pepe/2_walk/W-25.png',
         'img/2_character_pepe/2_walk/W-26.png'
-    ]
+    ];
+    walkig_sound = new Audio('audio/walk.mp3');
 
 
     constructor() {
@@ -21,29 +22,27 @@ class Character extends MovableObject {
     }
     animate() {
         setInterval(() => {
-            
+            this.walkig_sound.pause();
             if (this.world.keyboard.RIGHT  && this.x < this.world.level.level_end_x) {
                 this.x += this.speed; 
                 console.log('right x', this.x)   
-                this.otherDirection = false;           
+                this.otherDirection = false;
+                this.walkig_sound.play();           
             }
             if (this.world.keyboard.LEFT && this.x > 0) {   // char kann nicht mehr links raus laufen
                 this.x -= this.speed;
                 console.log('left x', this.x)  
-                this.otherDirection = true;         
+                this.otherDirection = true;
+                this.walkig_sound.play();         
             }
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         setInterval(() => {            
             
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {   
-                this.x += this.speed;            
-                let i = this.currentImage % this.IMAGES_WALKING.length; //let i = 0 % 6 => 0, rest 6 0 % 6 => 0, rest 6 / 3 % 6 => 0, rest 3 / 6 % 6 => 1, rest 0 / 7 % 6 => 1, rest 1
-                //i = 0,1,2,3,4,5,0,1,2,3,4,5
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;//
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {                            
+                //walk animation
+                this.playAnimation(this.IMAGES_WALKING);
             }
         }, 50);
     }
