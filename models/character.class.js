@@ -21,7 +21,7 @@ class Character extends MovableObject {
         './img/2_character_pepe/3_jump/J-36.png',
         './img/2_character_pepe/3_jump/J-37.png',
         './img/2_character_pepe/3_jump/J-38.png',
-        './img/2_character_pepe/3_jump/J-39.png'       
+        './img/2_character_pepe/3_jump/J-39.png'
     ];
     walkig_sound = new Audio('audio/walk.mp3');
 
@@ -37,21 +37,17 @@ class Character extends MovableObject {
         setInterval(() => {
             this.walkig_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.x += this.speed;
-                console.log('right x', this.x)
-                this.otherDirection = false;
+                this.moveRight();
                 this.walkig_sound.play();
+                this.otherDirection = false;
             }
             if (this.world.keyboard.LEFT && this.x > 0) {   // char kann nicht mehr links raus laufen
-                this.x -= this.speed;
-                console.log('left x', this.x)
-                this.otherDirection = true;
+                this.moveLeft();
                 this.walkig_sound.play();
+                this.otherDirection = true;
             }
-
-            
-            if (this.world.keyboard.UP) {
-                this.speedY = 20;
+            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+                this.jump();
             }
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
@@ -71,7 +67,5 @@ class Character extends MovableObject {
         }, 50);
     }
 
-    jump() {
 
-    };
 }
