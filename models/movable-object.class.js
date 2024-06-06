@@ -45,6 +45,29 @@ class MovableObject {
         this.currentImage++;//
     }
 
+    draw(ctx){
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height)
+
+    }
+
+    //character colliding
+    isColliding(obj) {
+        return  (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) && 
+                (this.y + this.offsetY + this.height) >= obj.y &&
+                (this.offsetY + this.offsetY) <= (obj.y + obj.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+    
+    }
+
+    drawFrame(ctx){
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.beginPath();
+            ctx.lineWidth = "5";
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();            
+        }
+    }
+
     moveRight() {
         this.x += this.speed;                
         
@@ -60,3 +83,4 @@ class MovableObject {
         this.speedY = 25;
     }
 }
+
