@@ -52,9 +52,9 @@ class MovableObject {
 
     //character colliding
     isColliding(obj) {
-        return  (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) && 
-                (this.y + this.offsetY + this.height) >= obj.y &&
-                (this.offsetY + this.offsetY) <= (obj.y + obj.height); // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
+        return  this.x + this.width > obj.x && 
+                this.y + this.height > obj.y &&
+                this.x < obj.x && this.y + obj.height;
     
     }
 

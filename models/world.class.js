@@ -23,7 +23,7 @@ class World {
                     console.log('Collision with Character', enemy);
                 }
             });
-        }, 1000);
+        }, 200);
     }
 
     setWorld() {
