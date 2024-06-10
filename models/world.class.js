@@ -5,6 +5,7 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
+    statusBar = new StatusBar();
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); //holt sich die id canvas, Rufe die Methode getContext('2d') dieses Elements auf, um den 2D-Zeichnungskontext zu erhalten und speichert sie in der Variable ctx
@@ -37,7 +38,8 @@ class World {
 
         //draw character
         this.addObjectsToMap(this.level.backgroundsObjects);
-        this.addToMap(this.character)
+        this.addToMap(this.statusBar);
+        this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
 
