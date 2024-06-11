@@ -38,6 +38,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-43.png'
     ]
     walkig_sound = new Audio('audio/walk.mp3');
+    deadAnimationPlayed = false;
 
 
     constructor() {
@@ -48,6 +49,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HURT);
         this.animate();
         this.applyGravity();
+        this.deadAnimationPlayed = false;
     }
     animate() {
         setInterval(() => {
@@ -69,8 +71,9 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-            if(this.isDead()){
-                this.playAnimation(this.IMAGES_DEAD);                
+            if(this.isDead() && !this.deadAnimationPlayed){
+                this.playAnimation(this.IMAGES_DEAD);
+                this.deadAnimationPlayed = true;                
             }else if(this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
