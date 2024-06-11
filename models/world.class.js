@@ -21,7 +21,8 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.character.isColliding(enemy)) {
-                    this.character.hit();                    
+                    this.character.hit();
+                    this.statusBar.setPercentages(this.character.energy);                    
                     console.log('Collision with Character, energy', this.character.energy);
                 }
             });
@@ -34,11 +35,15 @@ class World {
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
         this.ctx.translate(this.camera_x, 0);
-
-        //draw character
         this.addObjectsToMap(this.level.backgroundsObjects);
+        
+        this.ctx.translate(-this.camera_x, 0);
+        // ----- Space for fix Objects -----
         this.addToMap(this.statusBar);
+        this.ctx.translate(this.camera_x, 0);
+        
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.enemies);
