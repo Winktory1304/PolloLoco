@@ -2,7 +2,7 @@ class World {
     character = new Character();
     level = level1
     ctx;
-    canvas;
+    canvas;ndaasdasd
     keyboard;
     camera_x = 0;
     statusBar = new StatusBar();
