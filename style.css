@@ -2,6 +2,8 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('./img/10_background/background.png');
+    background-size: cover;
 }
 canvas{
     background-color: black;
