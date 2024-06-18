@@ -1,10 +1,12 @@
 class Bottles extends MovableObject{
     y = 200;
     x = 400;
-    height = 150;
-    width = 150;
+    height = 100;
+    width = 100;
 
-    constructor(){
+    constructor(x, y){
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
+        this.x = x;
+        this.y = y;
     }
 }

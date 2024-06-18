@@ -7,9 +7,7 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
-    statusBarCoin = new StatusBarCoin();
-    // coin = new Coins();
-    // bottle = new Bottles();
+    statusBarCoin = new StatusBarCoin();   
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
