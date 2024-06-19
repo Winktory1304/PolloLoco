@@ -44,18 +44,19 @@ class World {
             }
         });
 
-        this.level.coins.forEach((coin) => {
+        this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                this.character.collectCoin();
-                this.statusBarCoin.setPercentages(this.character.collectetCoins);
-                
+            this.character.collectCoin();
+            this.statusBarCoin.setPercentages(this.character.collectetCoins);
+            this.level.coins.splice(index, 1);
             }
         });
 
-        this.level.bottles.forEach((bottle) => {
+        this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.collectBottle();
                 this.statusBarBottle.setPercentages(this.character.collectetBottle);
+                this.level.bottles.splice(index, 1);
                 
             }
         });
