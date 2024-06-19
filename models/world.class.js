@@ -7,7 +7,7 @@ class World {
     camera_x = 0;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
-    statusBarCoin = new StatusBarCoin();   
+    statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
 
     constructor(canvas, keyboard) {
@@ -21,19 +21,21 @@ class World {
     }
 
     run() {
-        
-            setInterval(() => {
-                this.checkCollision();
-                this.checkThrowObjects();
-            }, 200);
+
+        setInterval(() => {
+            this.checkCollision();
+            this.checkThrowObjects();
+        }, 200);
+    }
+
+    checkThrowObjects() {
+        if (this.keyboard.D && this.character.collectetBottle > 0) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+            this.throwableObjects.push(bottle);
+            this.character.collectetBottle--;
+            this.statusBarBottle.setPercentages(this.character.collectetBottle);
         }
-    
-        checkThrowObjects(){
-            if (this,this.keyboard.D) {
-                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-                this.throwableObjects.push(bottle);
-            }
-        }
+    }
 
     checkCollision() {
         this.level.enemies.forEach((enemy) => {
@@ -46,9 +48,9 @@ class World {
 
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-            this.character.collectCoin();
-            this.statusBarCoin.setPercentages(this.character.collectetCoins);
-            this.level.coins.splice(index, 1);
+                this.character.collectCoin();
+                this.statusBarCoin.setPercentages(this.character.collectetCoins);
+                this.level.coins.splice(index, 1);
             }
         });
 
@@ -57,7 +59,7 @@ class World {
                 this.character.collectBottle();
                 this.statusBarBottle.setPercentages(this.character.collectetBottle);
                 this.level.bottles.splice(index, 1);
-                
+
             }
         });
     }
@@ -83,7 +85,7 @@ class World {
 
         this.addToMap(this.character);
         this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.coins);        
+        this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
