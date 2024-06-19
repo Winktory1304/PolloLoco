@@ -47,14 +47,16 @@ class World {
         this.level.coins.forEach((coin) => {
             if (this.character.isColliding(coin)) {
                 this.character.collectCoin();
-                console.log('Collision with Coin, coins collected:', this.character.collectetCoins);
+                this.statusBarCoin.setPercentages(this.character.collectetCoins);
+                
             }
         });
 
         this.level.bottles.forEach((bottle) => {
             if (this.character.isColliding(bottle)) {
                 this.character.collectBottle();
-                console.log('Collision with bottle, bottle collected:', this.character.collectetBottle);
+                this.statusBarBottle.setPercentages(this.character.collectetBottle);
+                
             }
         });
     }

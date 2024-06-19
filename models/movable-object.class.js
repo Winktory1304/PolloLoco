@@ -27,11 +27,18 @@ class MovableObject extends DrawableObject {
     }
 
     collectCoin() {
-        this.collectetCoins++;
+        if (this.collectetCoins < 5) {            
+            this.collectetCoins++;
+            console.log('Collision with Coin, coins collected:', this.collectetCoins);
+        }
     }
 
     collectBottle(){
-        this.collectetBottle++;
+        if (this.collectetBottle < 5) {
+            this.collectetBottle++;
+            console.log('Collision with bottle, bottle collected:', this.collectetBottle);
+            
+        }
     }
 
     isHurt() {
