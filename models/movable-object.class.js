@@ -5,6 +5,9 @@ class MovableObject extends DrawableObject {
     acceleration = 1.5;
     energy = 100;
     lastHit = 0;
+    collectetCoins = 0;
+    collectetBottle = 0;
+
 
     applyGravity() {
         setInterval(() => {
@@ -23,6 +26,14 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    collectCoin() {
+        this.collectetCoins++;
+    }
+
+    collectBottle(){
+        this.collectetBottle++;
+    }
+
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed = timepassed / 1000;
@@ -34,9 +45,9 @@ class MovableObject extends DrawableObject {
     }
 
     isAboveGround() {
-        if(this instanceof ThrowableObject){ //always fall
+        if (this instanceof ThrowableObject) { //always fall
             return true;
-        }else{
+        } else {
             return this.y < 160;
 
         }
