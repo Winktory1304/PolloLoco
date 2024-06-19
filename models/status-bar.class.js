@@ -1,15 +1,15 @@
-class StatusBar extends DrawableObject{
+class StatusBar extends DrawableObject {
     IMAGES = [
-        './img/7_statusbars/1_statusbar/2_statusbar_health/blue/0.png',
-        './img/7_statusbars/1_statusbar/2_statusbar_health/blue/20.png',
-        './img/7_statusbars/1_statusbar/2_statusbar_health/blue/40.png',
-        './img/7_statusbars/1_statusbar/2_statusbar_health/blue/60.png',
-        './img/7_statusbars/1_statusbar/2_statusbar_health/blue/80.png',
-        './img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png'
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/0.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/20.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/40.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/60.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/orange/80.png',
+        'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png'
     ];
     percentage = 100;
 
-    constructor(){
+    constructor() {
         super();
         this.loadImages(this.IMAGES);
         this.x = 30;
@@ -19,25 +19,25 @@ class StatusBar extends DrawableObject{
         this.setPercentages(100);
     }
 
-    setPercentages(percentage){
+    setPercentages(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
-        
+
     }
 
-    resolveImageIndex(){
-        if(this.percentage == 100){
+    resolveImageIndex() {
+        if (this.percentage == 100) {
             return 5;
-        }else if(this.percentage >80){
+        } else if (this.percentage > 80) {
             return 4;
-        }else if(this.percentage >60){
+        } else if (this.percentage > 60) {
             return 3;
-        }else if(this.percentage >40){
+        } else if (this.percentage > 40) {
             return 2;
-        }else if(this.percentage >20){
+        } else if (this.percentage > 20) {
             return 1;
-        }else{
+        } else {
             return 0;
         }
     }
