@@ -27,17 +27,17 @@ class MovableObject extends DrawableObject {
     }
 
     collectCoin() {
-        if (this.collectetCoins < 5) {            
+        if (this.collectetCoins < 5) {
             this.collectetCoins++;
             console.log('Collision with Coin, coins collected:', this.collectetCoins);
         }
     }
 
-    collectBottle(){
+    collectBottle() {
         if (this.collectetBottle < 5) {
             this.collectetBottle++;
             console.log('Collision with bottle, bottle collected:', this.collectetBottle);
-            
+
         }
     }
 
@@ -82,6 +82,20 @@ class MovableObject extends DrawableObject {
 
     }
 
+    isCollidingAbove(obj) {
+        if (
+            this.x + this.width > obj.x &&       // Rechte Kante von 'this' ist rechts von der linken Kante von 'obj'
+            this.x < obj.x + obj.width &&        // Linke Kante von 'this' ist links von der rechten Kante von 'obj'
+            this.y < obj.y &&                    // Obere Kante von 'this' ist oberhalb der oberen Kante von 'obj'
+            this.y + this.height > obj.y
+        ) {
+            // Collision from above
+            // Do something for collision from above
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     moveRight() {
