@@ -26,6 +26,10 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    jumpOnEnemy(){
+        console.log('hit')
+    }
+
     collectCoin() {
         if (this.collectetCoins < 5) {
             this.collectetCoins++;
