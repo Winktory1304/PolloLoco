@@ -78,25 +78,33 @@ class MovableObject extends DrawableObject {
     isColliding(obj) {
         return this.x + this.width > obj.x &&
             this.y + this.height > obj.y &&
-            this.x < obj.x && this.y + obj.height;
+            this.x < obj.x + obj.width &&
+            this.y < obj.y + obj.height;
 
+    }
+
+    isCollidingWithEnemy(obj) {
+        // Prüfe zuerst auf allgemeine Kollision
+        if (this.isColliding(obj)) {
+            // Wenn es sich um ein "enemy" handelt, prüfe auf Kollision von oben
+            if (obj.type === "enemy" && this.isCollidingAbove(obj)) {
+                // Spezifische Behandlung für Kollision von oben mit einem "enemy"
+                // Mache etwas bei Kollision von oben mit einem "enemy"
+                return true;
+            }
+            // Allgemeine Kollision erkannt
+            return true;
+        }
+        // Keine Kollision erkannt
+        return false;
     }
 
     isCollidingAbove(obj) {
-        if (
-            this.x + this.width > obj.x &&       // Rechte Kante von 'this' ist rechts von der linken Kante von 'obj'
-            this.x < obj.x + obj.width &&        // Linke Kante von 'this' ist links von der rechten Kante von 'obj'
-            this.y < obj.y &&                    // Obere Kante von 'this' ist oberhalb der oberen Kante von 'obj'
-            this.y + this.height > obj.y
-        ) {
-            // Collision from above
-            // Do something for collision from above
-            return true;
-        } else {
-            return false;
-        }
+        return this.x + this.width > obj.x &&
+            this.x < obj.x + obj.width &&
+            this.y < obj.y &&
+            this.y + this.height > obj.y;
     }
-
 
     moveRight() {
         this.x += this.speed;
