@@ -41,9 +41,8 @@ class World {
         // Kollision mit Feinden prüfen
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
-                if (enemy.type === "enemy" && this.character.isCollidingAbove(enemy)) {
-                    // Spezifische Behandlung für Kollision von oben mit einem "enemy"
-                    this.character.jumpOnEnemy(enemy); // Beispielhafte Methode zur Behandlung der Kollision von oben
+                if (this.character.isAboveGround()) {                    
+                    this.character.jumpOnEnemy(enemy);
                     console.log('Collision from above with enemy');
                 } else {
                     // Allgemeine Behandlung für Kollision mit einem "enemy"

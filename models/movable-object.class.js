@@ -27,6 +27,7 @@ class MovableObject extends DrawableObject {
     }
 
     jumpOnEnemy(){
+        this.playAnimation
         console.log('hit')
     }
 
@@ -87,21 +88,6 @@ class MovableObject extends DrawableObject {
 
     }
 
-    isCollidingWithEnemy(obj) {
-        // Prüfe zuerst auf allgemeine Kollision
-        if (this.isColliding(obj)) {
-            // Wenn es sich um ein "enemy" handelt, prüfe auf Kollision von oben
-            if (obj.type === "enemy" && this.isCollidingAbove(obj)) {
-                // Spezifische Behandlung für Kollision von oben mit einem "enemy"
-                // Mache etwas bei Kollision von oben mit einem "enemy"
-                return true;
-            }
-            // Allgemeine Kollision erkannt
-            return true;
-        }
-        // Keine Kollision erkannt
-        return false;
-    }
 
     isCollidingAbove(obj) {
         return this.x + this.width > obj.x &&
