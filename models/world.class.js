@@ -38,14 +38,23 @@ class World {
     }
 
     checkCollision() {
+        // Kollision mit Feinden prüfen
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
-                this.character.hit();
-                this.statusBar.setPercentages(this.character.energy);
-                console.log('Collision with Character, energy', this.character.energy);
+                if (enemy.type === "enemy" && this.character.isCollidingAbove(enemy)) {
+                    // Spezifische Behandlung für Kollision von oben mit einem "enemy"
+                    this.character.jumpOnEnemy(enemy); // Beispielhafte Methode zur Behandlung der Kollision von oben
+                    console.log('Collision from above with enemy');
+                } else {
+                    // Allgemeine Behandlung für Kollision mit einem "enemy"
+                    this.character.hit();
+                    this.statusBar.setPercentages(this.character.energy);
+                    console.log('Collision with Character, energy', this.character.energy);
+                }
             }
         });
 
+        // Kollision mit Münzen prüfen
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 this.character.collectCoin();
@@ -54,12 +63,12 @@ class World {
             }
         });
 
+        // Kollision mit Flaschen prüfen
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
                 this.character.collectBottle();
                 this.statusBarBottle.setPercentages(this.character.collectetBottle);
                 this.level.bottles.splice(index, 1);
-
             }
         });
     }
