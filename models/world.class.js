@@ -39,7 +39,7 @@ class World {
 
     checkCollision() {
         // Kollision mit Feinden prüfen
-        this.level.enemies.forEach((enemy) => {
+        this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
                 if (enemy.type === "enemy" && this.character.isCollidingAbove(enemy)) {
                     // Spezifische Behandlung für Kollision von oben mit einem "enemy"
