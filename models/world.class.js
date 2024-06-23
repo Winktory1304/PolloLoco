@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    chicken = new Chicken();
     level = level1
     ctx;
     canvas;
@@ -42,11 +43,11 @@ class World {
         this.level.enemies.forEach((enemy, index) => {
             if (this.character.isColliding(enemy)) {
                 if (this.character.isAboveGround()) {                    
-                    this.character.jumpOnEnemy(enemy);
+                    enemy.hit(100);                    
                     console.log('Collision from above with enemy');
                 } else {
                     // Allgemeine Behandlung für Kollision mit einem "enemy"
-                    this.character.hit();
+                    this.character.hit(10);
                     this.statusBar.setPercentages(this.character.energy);
                     console.log('Collision with Character, energy', this.character.energy);
                 }

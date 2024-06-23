@@ -17,8 +17,8 @@ class MovableObject extends DrawableObject {
             }
         }, 1000 / 25)
     }
-    hit() {
-        this.energy -= 10;
+    hit(damge) {
+        this.energy -= damge;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -26,10 +26,7 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    jumpOnEnemy(){
-        this.playAnimation
-        console.log('hit')
-    }
+
 
     collectCoin() {
         if (this.collectetCoins < 5) {
@@ -54,6 +51,10 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    chickenIsDead(){
+
     }
 
     isAboveGround() {
