@@ -26,7 +26,7 @@ class World {
         setInterval(() => {
             this.checkCollision();
             this.checkThrowObjects();
-        }, 200);
+        }, 25);
     }
 
     checkThrowObjects() {
@@ -39,39 +39,73 @@ class World {
     }
 
     checkCollision() {
-        // Kollision mit Feinden prüfen
-        this.level.enemies.forEach((enemy, index) => {
-            if (this.character.isColliding(enemy)) {
-                if (this.character.isAboveGround()) {                    
-                    enemy.hit(100);                    
-                    console.log('Collision from above with enemy');
+        this.checkCollisionWithEnemies();
+        this.checkCollisionWithCoins();
+        this.checkCollisionWithBottles();
+    }
+
+    checkCollisionWithEnemies() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy) && !this.character.isHurt() && !enemy.isDead()) {
+                if (this.character.isAboveGround() && this.character.speedY < 0) {
+                    this.handleEnemyCollisionFromAbove(enemy);
                 } else {
-                    // Allgemeine Behandlung für Kollision mit einem "enemy"
-                    this.character.hit(10);
-                    this.statusBar.setPercentages(this.character.energy);
-                    console.log('Collision with Character, energy', this.character.energy);
+                    this.handleCharacterHitByEnemy();
                 }
             }
         });
+    }
 
-        // Kollision mit Münzen prüfen
+    handleEnemyCollisionFromAbove(enemy) {
+        enemy.hit(100);
+        this.removeEnemyAtIndex(enemy);
+        console.log('Collision from above with enemy');
+    }
+
+    removeEnemyAtIndex(enemy) {
+        let index = this.level.enemies.indexOf(enemy);
+        if (index > -1) {
+            setTimeout(() => {
+                this.level.enemies.splice(index, 1);
+                console.log('Enemy removed from level');
+            }, 3000);
+        }
+    }
+
+    handleCharacterHitByEnemy() {
+        this.character.hit(10);
+        this.statusBar.setPercentages(this.character.energy);
+        console.log('Collision with Character, energy', this.character.energy);
+    }
+
+    checkCollisionWithCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                this.character.collectCoin();
-                this.statusBarCoin.setPercentages(this.character.collectetCoins);
-                this.level.coins.splice(index, 1);
-            }
-        });
-
-        // Kollision mit Flaschen prüfen
-        this.level.bottles.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle)) {
-                this.character.collectBottle();
-                this.statusBarBottle.setPercentages(this.character.collectetBottle);
-                this.level.bottles.splice(index, 1);
+                this.handleCoinCollision(index);
             }
         });
     }
+
+    handleCoinCollision(index) {
+        this.character.collectCoin();
+        this.statusBarCoin.setPercentages(this.character.collectetCoins);
+        this.level.coins.splice(index, 1);
+    }
+
+    checkCollisionWithBottles() {
+        this.level.bottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle)) {
+                this.handleBottleCollision(index);
+            }
+        });
+    }
+
+    handleBottleCollision(index) {
+        this.character.collectBottle();
+        this.statusBarBottle.setPercentages(this.character.collectetBottle);
+        this.level.bottles.splice(index, 1);
+    }
+
 
 
 
