@@ -68,7 +68,7 @@ class World {
             setTimeout(() => {
                 this.level.enemies.splice(index, 1);
                 console.log('Enemy removed from level');
-            }, 3000);
+            }, 2000);
         }
     }
 
