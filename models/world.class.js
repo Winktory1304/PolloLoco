@@ -6,6 +6,7 @@ class World {
     canvas;
     keyboard;
     camera_x = 0;
+    timeOfThrow = 0;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
@@ -30,11 +31,13 @@ class World {
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D && this.character.collectetBottle > 0) {
+        if (this.keyboard.D && this.character.collectetBottle > 0 && this.lastThrow() > 1) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
             this.throwableObjects.push(bottle);
             this.character.collectetBottle--;
             this.statusBarBottle.setPercentages(this.character.collectetBottle);
+            this.timeOfThrow = new Date().getTime();
+            
         }
     }
 
@@ -106,6 +109,12 @@ class World {
         this.level.bottles.splice(index, 1);
     }
 
+
+    lastThrow() {
+        let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
+        return timepassed;
+    
+    }
 
 
 
