@@ -3,6 +3,7 @@ class World {
     chicken = new Chicken();
     level = level1
     ctx;
+    firstContactBoss = false;
     canvas;
     keyboard;
     camera_x = 0;
@@ -27,26 +28,17 @@ class World {
         setInterval(() => {
             this.checkCollision();
             this.checkThrowObjects();
+            this.checkFirstContactBoss();
         }, 25);
     }
-
-    checkThrowObjects() {
-        if (this.keyboard.D && this.character.collectetBottle > 0 && this.lastThrow() > 1) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
-            this.throwableObjects.push(bottle);
-            this.character.collectetBottle--;
-            this.statusBarBottle.setPercentages(this.character.collectetBottle);
-            this.timeOfThrow = new Date().getTime();
-            
-        }
-    }
-
+// -------------------------------------------------------------------------
+    
     checkCollision() {
         this.checkCollisionWithEnemies();
         this.checkCollisionWithCoins();
         this.checkCollisionWithBottles();
     }
-
+    
     checkCollisionWithEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isHurt() && !enemy.isDead()) {
@@ -58,13 +50,13 @@ class World {
             }
         });
     }
-
+    
     handleEnemyCollisionFromAbove(enemy) {
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
         console.log('Collision from above with enemy');
     }
-
+    
     removeEnemyAtIndex(enemy) {
         let index = this.level.enemies.indexOf(enemy);
         if (index > -1) {
@@ -80,7 +72,7 @@ class World {
         this.statusBar.setPercentages(this.character.energy);
         console.log('Collision with Character, energy', this.character.energy);
     }
-
+    
     checkCollisionWithCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -88,13 +80,13 @@ class World {
             }
         });
     }
-
+    
     handleCoinCollision(index) {
         this.character.collectCoin();
         this.statusBarCoin.setPercentages(this.character.collectetCoins);
         this.level.coins.splice(index, 1);
     }
-
+    
     checkCollisionWithBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -102,32 +94,51 @@ class World {
             }
         });
     }
-
+    
     handleBottleCollision(index) {
         this.character.collectBottle();
         this.statusBarBottle.setPercentages(this.character.collectetBottle);
         this.level.bottles.splice(index, 1);
     }
 
-
+    // -------------------------------------------------------------------------
+    
+    checkThrowObjects() {
+        if (this.keyboard.D && this.character.collectetBottle > 0 && this.lastThrow() > 1) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
+            this.throwableObjects.push(bottle);
+            this.character.collectetBottle--;
+            this.statusBarBottle.setPercentages(this.character.collectetBottle);
+            this.timeOfThrow = new Date().getTime();
+            
+        }
+    }
+    
     lastThrow() {
         let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
         return timepassed;
-    
+        
     }
+    
+    // -------------------------------------------------------------------------
 
-
-
+    checkFirstContactBoss(){
+        if (this.firstContactBoss) {
+            //play sound
+            console.log('Rohhhharrr')
+        }
+    }
+    
     setWorld() {
         this.character.world = this;
     }
-
+    
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
+        
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundsObjects);
-
+        
         this.ctx.translate(-this.camera_x, 0);
         // ----- Space for fix Objects -----
         this.addToMap(this.statusBar);

@@ -1,5 +1,4 @@
-class Endboss extends MovableObject {
-    firstContactBoss = false;
+class Endboss extends MovableObject {    
     height = 500;
     width = 300;
     y = -35;
@@ -39,9 +38,9 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_WALKING);
             }
             i++;
-            if (world.character.x > 1860 && !this.firstContactBoss) {
+            if (world.character.x > 1860 && !world.firstContactBoss) {
                 i = 0;
-                this.firstContactBoss = true;
+                world.firstContactBoss = true;                
             }
         }, 200);
     }
