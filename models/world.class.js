@@ -1,9 +1,11 @@
 class World {
     character = new Character();
     chicken = new Chicken();
-    level = level1
+    endboss = new Endboss();
+    level = level1;
     ctx;
     firstContactBoss = false;
+    firstContactBosshandle = false;
     canvas;
     keyboard;
     camera_x = 0;
@@ -24,21 +26,22 @@ class World {
     }
 
     run() {
-
         setInterval(() => {
             this.checkCollision();
             this.checkThrowObjects();
             this.checkFirstContactBoss();
         }, 25);
     }
-// -------------------------------------------------------------------------
-    
+
+    // -------------------------------------------------------------------------
+
     checkCollision() {
         this.checkCollisionWithEnemies();
         this.checkCollisionWithCoins();
         this.checkCollisionWithBottles();
+        this.checkCollisionThrowableObjects();
     }
-    
+
     checkCollisionWithEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isHurt() && !enemy.isDead()) {
@@ -50,13 +53,42 @@ class World {
             }
         });
     }
-    
+
+    checkCollisionThrowableObjects() {
+        let objectsToRemove = [];
+        let enemiesToRemove = [];
+
+        this.level.enemies.forEach((enemy) => {
+            this.throwableObjects.forEach((throwableObject, index) => {
+                if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
+                    enemy.hit(throwableObject.damage);
+                    // playAnimation(throwableObject.x, throwableObject.y, IMAGES_SPLASH, 200); // Play the splash animation at the specified position
+                    objectsToRemove.push(index); // Index der zu entfernenden Wurfobjekte speichern
+                    enemiesToRemove.push(enemy); // Enemy zum Entfernen speichern
+                    console.log('Collision with throwable object');
+                }
+            });
+        });
+
+        // Entferne Wurfobjekte in umgekehrter Reihenfolge, um Index-Probleme zu vermeiden
+        objectsToRemove.sort((a, b) => b - a).forEach((index) => {
+            this.throwableObjects.splice(index, 1);
+        });
+
+        // Entferne Feinde, wenn es sich nicht um den Endboss handelt
+        if (!this.endboss) {
+            enemiesToRemove.forEach((enemy) => {
+            this.removeEnemyAtIndex(enemy);
+            });
+        }
+    }
+
     handleEnemyCollisionFromAbove(enemy) {
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
         console.log('Collision from above with enemy');
     }
-    
+
     removeEnemyAtIndex(enemy) {
         let index = this.level.enemies.indexOf(enemy);
         if (index > -1) {
@@ -72,7 +104,7 @@ class World {
         this.statusBar.setPercentages(this.character.energy);
         console.log('Collision with Character, energy', this.character.energy);
     }
-    
+
     checkCollisionWithCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -80,13 +112,13 @@ class World {
             }
         });
     }
-    
+
     handleCoinCollision(index) {
         this.character.collectCoin();
         this.statusBarCoin.setPercentages(this.character.collectetCoins);
         this.level.coins.splice(index, 1);
     }
-    
+
     checkCollisionWithBottles() {
         this.level.bottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle)) {
@@ -94,7 +126,7 @@ class World {
             }
         });
     }
-    
+
     handleBottleCollision(index) {
         this.character.collectBottle();
         this.statusBarBottle.setPercentages(this.character.collectetBottle);
@@ -102,7 +134,7 @@ class World {
     }
 
     // -------------------------------------------------------------------------
-    
+
     checkThrowObjects() {
         if (this.keyboard.D && this.character.collectetBottle > 0 && this.lastThrow() > 1) {
             let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100)
@@ -110,35 +142,35 @@ class World {
             this.character.collectetBottle--;
             this.statusBarBottle.setPercentages(this.character.collectetBottle);
             this.timeOfThrow = new Date().getTime();
-            
+
         }
     }
-    
+
     lastThrow() {
         let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
         return timepassed;
-        
     }
-    
+
     // -------------------------------------------------------------------------
 
-    checkFirstContactBoss(){
-        if (this.firstContactBoss) {
+    checkFirstContactBoss() {
+        if (this.firstContactBoss && !this.firstContactBosshandle) {
             //play sound
-            console.log('Rohhhharrr')
+            console.log('Rohhhharrr');
+            this.firstContactBosshandle = true;           
         }
     }
-    
+
     setWorld() {
         this.character.world = this;
     }
-    
+
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        
+
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.level.backgroundsObjects);
-        
+
         this.ctx.translate(-this.camera_x, 0);
         // ----- Space for fix Objects -----
         this.addToMap(this.statusBar);
@@ -160,10 +192,11 @@ class World {
             this.draw();
         });
     }
+
     addObjectsToMap(objects) {
         objects.forEach(o => {
             this.addToMap(o);
-        })
+        });
     }
 
     //Funktion um alle movableObjects(mo) zur Karte zu adden
@@ -174,12 +207,10 @@ class World {
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
 
-
         if (mo.otherDirection) {
             this.restoreFlipImage(mo);
         }
     }
-
 
     restoreFlipImage(mo) {
         mo.x = mo.x * -1;
