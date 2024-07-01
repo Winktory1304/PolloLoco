@@ -32,13 +32,14 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 30;
         this.applyGravity();
-        const intervalId = setInterval(() => {  // Save the interval ID to clear it later
+        const intervalId = setInterval(() => {  
             this.x += 10;
             if (this.isAboveGround() && !this.hit) {
                 this.playAnimation(this.IMAGES_ROTATE);
             } else {
                 this.playAnimation(this.IMAGES_SPLASH);
-                clearInterval(intervalId);  // Clear the interval
+                clearInterval(intervalId);
+                // debugger;  
             }
         }, 25);
     }
