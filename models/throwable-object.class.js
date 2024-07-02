@@ -14,13 +14,15 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/3_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/4_bottle_rotation.png'
-    ]
+    ];
+    IMAGES_EMPTY = [''];
 
     constructor(x, y) {
         super();
         this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_SPLASH);
         this.loadImages(this.IMAGES_ROTATE);
+        this.loadImages(this.IMAGES_EMPTY);
         this.x = x;
         this.y = y;
         this.height = 50;
@@ -32,12 +34,15 @@ class ThrowableObject extends MovableObject {
     throw() {
         this.speedY = 30;
         this.applyGravity();
-        const intervalId = setInterval(() => {  
+        const intervalId = setInterval(() => {
             this.x += 10;
             if (this.isAboveGround() && !this.hit) {
                 this.playAnimation(this.IMAGES_ROTATE);
             } else {
                 this.playAnimation(this.IMAGES_SPLASH);
+                setTimeout(() => {
+                    this.playAnimation(this.IMAGES_EMPTY);
+                }, 100);
                 clearInterval(intervalId);
                 // debugger;  
             }
