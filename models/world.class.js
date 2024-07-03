@@ -2,6 +2,7 @@ class World {
     character = new Character();
     chicken = new Chicken();
     endboss = new Endboss();
+    smallChicken = new SmallChicken();
     level = level1;
     ctx;
     firstContactBoss = false;
