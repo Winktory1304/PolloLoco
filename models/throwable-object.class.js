@@ -17,7 +17,7 @@ class ThrowableObject extends MovableObject {
     ];
     IMAGES_EMPTY = [''];
 
-    constructor(x, y) {
+    constructor(x, y, throwDirection) {
         super();
         this.loadImage('img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png');
         this.loadImages(this.IMAGES_SPLASH);
@@ -27,14 +27,19 @@ class ThrowableObject extends MovableObject {
         this.y = y;
         this.height = 50;
         this.width = 60;
-        this.throw();
+        this.throw(throwDirection);
     }
 
-    throw() {
+    throw(throwDirection) {
         this.speedY = 30;
         this.applyGravity();
         const intervalId = setInterval(() => {
-            this.x += 10;
+            console.log(this.otherDirection);
+            if (!throwDirection) {
+                this.x += 10;
+            } else {
+                this.x -= 10;
+            }
             if (this.isAboveGround() && !this.hit) {
                 this.playAnimation(this.IMAGES_ROTATE);
             } else {
