@@ -33,8 +33,7 @@ class ThrowableObject extends MovableObject {
     throw(throwDirection) {
         this.speedY = 30;
         this.applyGravity();
-        const intervalId = setInterval(() => {
-            console.log(this.otherDirection);
+        const intervalId = setInterval(() => {            
             if (!throwDirection) {
                 this.x += 10;
             } else {
@@ -47,8 +46,7 @@ class ThrowableObject extends MovableObject {
                 setTimeout(() => {
                     this.playAnimation(this.IMAGES_EMPTY);
                 }, 100);
-                clearInterval(intervalId);
-                // debugger;  
+                clearInterval(intervalId);                
             }
         }, 25);
     }
