@@ -44,6 +44,12 @@ class Endboss extends MovableObject {
     alertAnimationPlayed = false;
     speed = 15;
     x = 1750;
+    offset = {
+        left: 60,
+        right: 60,
+        top: 80,
+        bottom: 20
+    };
 
     constructor() {
         super();

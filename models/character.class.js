@@ -2,8 +2,8 @@ class Character extends MovableObject {
 
     world;
     height = 280;
-    y = 100;
-    speed = 10;   
+    y = 140;
+    speed = 5;   
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
         'img/2_character_pepe/2_walk/W-22.png',
@@ -39,6 +39,12 @@ class Character extends MovableObject {
     ]
     walkig_sound = new Audio('audio/walk.mp3');
     deadAnimationPlayed = false;
+    offset = {
+        left: 25,
+        right: 40,
+        top: 80,
+        bottom: 10
+    };
 
 
     constructor() {
