@@ -42,6 +42,7 @@ class World {
         this.checkCollisionWithCoins();
         this.checkCollisionWithBottles();
         this.checkCollisionThrowableObjects();
+        this.checkCollisionBottleWithEnemy()
     }
 
     checkCollisionWithEnemies() {
@@ -63,7 +64,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             this.throwableObjects.forEach((throwableObject, index) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
-                    enemy.hit(throwableObject.damage);
+                    enemy.hit(100);
                     // playAnimation(throwableObject.x, throwableObject.y, IMAGES_SPLASH, 200); // Play the splash animation at the specified position
                     objectsToRemove.push(index); // Index der zu entfernenden Wurfobjekte speichern
                     enemiesToRemove.push(enemy); // Enemy zum Entfernen speichern
@@ -89,6 +90,29 @@ class World {
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
         console.log('Collision from above with enemy');
+    }
+    checkCollisionBottleWithEnemy() {
+        let objectsToRemove = [];
+        let enemiesToRemove = [];
+
+        this.throwableObjects.forEach((throwableObject, index) => {
+            this.level.enemies.forEach((enemy) => {
+                if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
+                    enemy.hit(throwableObject.damage);
+                    objectsToRemove.push(index);
+                    enemiesToRemove.push(enemy);
+                    console.log('Collision with throwable object');
+                }
+            });
+        });
+
+        objectsToRemove.sort((a, b) => b - a).forEach((index) => {
+            this.throwableObjects.splice(index, 1);
+        });
+
+        enemiesToRemove.forEach((enemy) => {
+            this.removeEnemyAtIndex(enemy);
+        });
     }
 
     removeEnemyAtIndex(enemy) {

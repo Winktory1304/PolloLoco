@@ -31,7 +31,7 @@ class ThrowableObject extends MovableObject {
     }
 
     throw(throwDirection) {
-        this.speedY = 30;
+        this.speedY = 25;
         this.applyGravity();
         const intervalId = setInterval(() => {            
             if (!throwDirection) {
@@ -48,6 +48,6 @@ class ThrowableObject extends MovableObject {
                 }, 100);
                 clearInterval(intervalId);                
             }
-        }, 25);
+        }, 50);
     }
 }
