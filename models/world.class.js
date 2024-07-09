@@ -32,6 +32,7 @@ class World {
             this.checkCollision();
             this.checkThrowObjects();
             this.checkFirstContactBoss();
+            this.checkEndTheGame();
         }, 25);
     }
 
@@ -186,6 +187,15 @@ class World {
             this.firstContactBosshandle = true;           
         }
     }
+
+    checkEndTheGame() {
+        if (this.character.energy <= 0) {
+            this.endTheGameByLost();
+        } else if (this.endboss.energy <= 0) {
+            this.endTheGameByWin();
+        }
+    }
+    
 
     setWorld() {
         this.character.world = this;
