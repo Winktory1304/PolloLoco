@@ -65,7 +65,7 @@ class World {
         this.level.enemies.forEach((enemy) => {
             this.throwableObjects.forEach((throwableObject, index) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
-                    enemy.hit(100);
+                    enemy.hit(20);
                     // playAnimation(throwableObject.x, throwableObject.y, IMAGES_SPLASH, 200); // Play the splash animation at the specified position
                     objectsToRemove.push(index); // Index der zu entfernenden Wurfobjekte speichern
                     enemiesToRemove.push(enemy); // Enemy zum Entfernen speichern

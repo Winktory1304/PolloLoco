@@ -87,8 +87,7 @@ class Endboss extends MovableObject {
     }
 
     handleDeath() {
-        this.playAnimation(Endboss.IMAGES_DEAD);
-        gameWon();
+        this.playAnimation(Endboss.IMAGES_DEAD);        
         setTimeout(() => this.showImage(Endboss.IMAGES_DEAD[2]), Endboss.IMAGES_DEAD.length * 150);
         setTimeout(() => gameDone(), Endboss.IMAGES_DEAD.length * 200);
     }
