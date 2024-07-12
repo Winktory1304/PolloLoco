@@ -18,6 +18,19 @@ function endTheGameByLost(){
     gameScreen.style.display = 'none';
 }
 
+function endTheGameByWin(){
+    let startScreen = document.getElementById('startScreen');
+    startScreen.style.display = 'none';
+    let defeatScreen = document.getElementById('defeatScreen');
+    defeatScreen.style.display = 'none';
+    let winScreen = document.getElementById('winScreen');
+    winScreen.style.display = 'unset';
+    let gameScreen = document.getElementById('gameScreen');
+    gameScreen.style.display = 'none';
+
+}
+
+
 
 function init(){
     canvas = document.getElementById('canvas');
