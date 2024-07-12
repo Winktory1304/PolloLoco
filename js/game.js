@@ -2,6 +2,23 @@ let canvas;
 let world; 
 let keyboard = new Keyboard();
 
+
+function startGame(){
+    init();
+}
+
+function endTheGameByLost(){
+    let startScreen = document.getElementById('startScreen');
+    startScreen.style.display = 'none';
+    let defeatScreen = document.getElementById('defeatScreen');
+    defeatScreen.style.display = 'unset';
+    let winScreen = document.getElementById('winScreen');
+    winScreen.style.display = 'none';
+    let gameScreen = document.getElementById('gameScreen');
+    gameScreen.style.display = 'none';
+}
+
+
 function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);

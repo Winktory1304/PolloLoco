@@ -49,3 +49,18 @@ h1 {
     align-items: center;
     justify-content: center;
 }
+
+.defeatScreen{
+    background-image: url('./img/11_WinDefeat/defeatScreen.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 820px;
+    height: 480px;
+
+}
+
+.d-none{
+    display: none;
+}

@@ -27,10 +27,15 @@
     <script src="./js/game.js"></script>
 </head>
 <body onload="init()">
-<div class="fullscreen" id="fullscreen">
+
     <h1>El Pollo Loco</h1>
-    <canvas id="canvas" width="720" height="480"></canvas>
-</div>
+    <div id="startScreen" class="startScreen"></div>
+    <div id="defeatScreen" class="defeatScreen d-none"></div>
+    <div id="winScreen" class="winScreen"></div>
+    <div id="gameScreen" class="gameScreen">
+        <canvas id="canvas" width="720" height="480"></canvas>
+    </div>
+
     
 </body>
 </html>

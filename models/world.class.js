@@ -190,11 +190,13 @@ class World {
 
     checkEndTheGame() {
         if (this.character.energy <= 0) {
-            this.endTheGameByLost();
+            endTheGameByLost();
         } else if (this.endboss.energy <= 0) {
-            this.endTheGameByWin();
+            endTheGameByWin();
         }
     }
+
+    
     
 
     setWorld() {
