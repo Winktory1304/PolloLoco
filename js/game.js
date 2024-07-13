@@ -1,13 +1,23 @@
 let canvas;
 let world; 
 let keyboard = new Keyboard();
-
+let winSound = new Audio('audio/winSound.mp3');
+let defeatSound = new Audio('audio/defeatSound.mp3');
+let gameLost = false;
+let gameWon = false;
 
 function startGame(){
+    gameLost = false;
+    gameWon = false;
     init();
 }
 
 function endTheGameByLost(){
+    if (gameLost) return; // Wenn das Spiel bereits verloren wurde, nichts tun
+    gameLost = true; // Setzt den Status auf verloren
+    defeatSound.loop = false;
+    defeatSound.currentTime = 0; // Setzt den Sound auf den Anfang
+    defeatSound.play();
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let defeatScreen = document.getElementById('defeatScreen');
@@ -19,6 +29,9 @@ function endTheGameByLost(){
 }
 
 function endTheGameByWin(){
+    if (gameWon) return; // Wenn das Spiel bereits gewonnen wurde, nichts tun
+    gameWon = true; // Setzt den Status auf gewonnen
+    winSound.play();
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
     let defeatScreen = document.getElementById('defeatScreen');
@@ -27,15 +40,11 @@ function endTheGameByWin(){
     winScreen.style.display = 'unset';
     let gameScreen = document.getElementById('gameScreen');
     gameScreen.style.display = 'none';
-
 }
-
-
 
 function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
     
     console.log('My character is', world.character);   
 }
@@ -59,9 +68,7 @@ window.addEventListener('keydown', (e) =>{
     if(e.keyCode == 68){
         keyboard.D = true;        
     }
-    
 });
-
 
 window.addEventListener('keyup', (e) =>{
     if(e.code == "ArrowRight"){ 
@@ -82,5 +89,4 @@ window.addEventListener('keyup', (e) =>{
     if(e.keyCode == 68){
         keyboard.D = false;        
     }
-    
 });
