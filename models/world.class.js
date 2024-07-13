@@ -16,6 +16,10 @@ class World {
     statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
     animationIntervals = [];
+    collectCoinSound = new Audio('audio/collectCoin.mp3');
+    killChickenSound = new Audio('audio/killSound.mp3');
+    bottleBreakSound = new Audio('audio/brokenBottle.mp3');
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d'); //holt sich die id canvas, Rufe die Methode getContext('2d') dieses Elements auf, um den 2D-Zeichnungskontext zu erhalten und speichert sie in der Variable ctx
@@ -65,6 +69,8 @@ class World {
         this.level.enemies.forEach((enemy) => {
             this.throwableObjects.forEach((throwableObject, index) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
+                    this.bottleBreakSound.play();
+                    this.killChickenSound.play();
                     enemy.hit(20);
                     // playAnimation(throwableObject.x, throwableObject.y, IMAGES_SPLASH, 200); // Play the splash animation at the specified position
                     objectsToRemove.push(index); // Index der zu entfernenden Wurfobjekte speichern
@@ -88,6 +94,7 @@ class World {
     }
 
     handleEnemyCollisionFromAbove(enemy) {
+        this.killChickenSound.play();
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
         console.log('Collision from above with enemy');
@@ -142,6 +149,7 @@ class World {
 
     handleCoinCollision(index) {
         this.character.collectCoin();
+        this.collectCoinSound.play();
         this.statusBarCoin.setPercentages(this.character.collectetCoins);
         this.level.coins.splice(index, 1);
     }

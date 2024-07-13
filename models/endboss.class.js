@@ -36,6 +36,8 @@ class Endboss extends MovableObject {
         '../img/4_enemie_boss_chicken/5_dead/G25.png',
         '../img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
+    bossMusic = new Audio('audio/bossMusic.mp3');
+    bossChickenSound = new Audio('audio/bossChicken.mp3');
 
     width = 400;
     height = 400;
@@ -78,11 +80,14 @@ class Endboss extends MovableObject {
         } else if (this.isInAttackRange()) {
             this.playAnimation(Endboss.IMAGES_ATTACK);
         } else if (this.isInAlertRange() && !this.alertAnimationPlayed) {
+            this.bossMusic.play(); 
+            this.bossChickenSound.play(); 
             this.handleAlert();
         } else if (this.alertAnimationPlayed) {
             this.walkAndMoveLeft();
         } else {
             this.showSpawnImage();
+            
         }
     }
 
@@ -98,6 +103,7 @@ class Endboss extends MovableObject {
 
     isInAlertRange() {
         return this.checkDistance() < 300;
+        
     }
 
     handleAlert() {
@@ -115,6 +121,8 @@ class Endboss extends MovableObject {
     showSpawnImage() {
         if (this.checkDistance() > 200) {
             this.showImage(Endboss.IMAGE_SPAWN);
+             
+
         }
     }
 

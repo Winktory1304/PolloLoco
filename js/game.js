@@ -13,6 +13,7 @@ function startGame(){
 }
 
 function endTheGameByLost(){
+    world.endboss.bossMusic.pause();
     if (gameLost) return; // Wenn das Spiel bereits verloren wurde, nichts tun
     gameLost = true; // Setzt den Status auf verloren    
     defeatSound.currentTime = 0; // Setzt den Sound auf den Anfang
