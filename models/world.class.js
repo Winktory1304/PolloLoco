@@ -1,8 +1,8 @@
 class World {
     character = new Character();
-    chicken = new Chicken();
-    endboss = new Endboss();
-    smallChicken = new SmallChicken();
+    // chicken = new Chicken();
+    // endboss = new Endboss();
+    // smallChicken = new SmallChicken();
     level = level1;
     ctx;
     firstContactBoss = false;
@@ -38,6 +38,9 @@ class World {
             this.checkFirstContactBoss();
             this.checkEndTheGame();
         }, 25);
+    }
+    clearAllIntervals() {
+        for (let i = 1; i < 9999; i++) window.clearInterval(i);
     }
 
     // -------------------------------------------------------------------------
@@ -198,22 +201,14 @@ class World {
 
     checkEndTheGame() {
         if (this.character.energy <= 0) {
-            stopInterval();
             endTheGameByLost();
+            this.clearAllIntervals();
         } else if (this.endboss.energy <= 0) {
-            // this.stopAllIntervals();
             endTheGameByWin();
+            this.clearAllIntervals();
         }
     }
-    // stopAllIntervals() {       
-    //     this.character.stopInterval();
-    //     this.chicken.stopInterval();
-    //     this.endboss.stopInterval();
-    //     this.smallChicken.stopInterval();
-    //     // Füge weitere Objekte hinzu, die Intervalle haben könnten
-    // }
-    
-    
+
 
     setWorld() {
         this.character.world = this;
