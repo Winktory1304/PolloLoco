@@ -28,29 +28,23 @@ class SmallChicken extends MovableObject {
     }
 
     animate() {
-        this.moveAnimation();
-        this.imagesAnimation();
+        this.setStoppableAnimationInterval(this.moveAnimationSmallChicken.bind(this), 1000 / 60);
+        this.setStoppableAnimationInterval(this.imagesAnimationSmallChicken.bind(this), 200);
     }
 
-    moveAnimation() {
-        let moveIntervalSmallChicken = setInterval(() => {
-            if (!this.isDead()) {
-                this.moveLeft();
-            }
-        }, 1000 / 60);
-        debugger;
-        this.animationIntervals.push(moveIntervalSmallChicken);
+    moveAnimationSmallChicken() {
+        if (!this.isDead()) {
+            this.moveLeft();
+        }
     }
-    imagesAnimation() {
 
-        let animationIntervalSmallChicken = setInterval(() => {
-            if (!this.isDead()) {
-                this.playAnimation(this.IMAGES_WALKING);
-            } else {
-                this.playAnimation(this.IMAGES_DEAD);
-            }
-        }, 200);
-        this.animationIntervals.push(animationIntervalSmallChicken);
+
+    imagesAnimationSmallChicken() {
+        if (!this.isDead()) {
+            this.playAnimation(this.IMAGES_WALKING);
+        } else {
+            this.playAnimation(this.IMAGES_DEAD);
+        }
     }
 
 

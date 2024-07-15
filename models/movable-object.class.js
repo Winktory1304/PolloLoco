@@ -15,13 +15,16 @@ class MovableObject extends DrawableObject {
         bottom: 0
     };
 
-    stopInterval() {
-        this.animationIntervals.forEach((interval) => {
-            clearInterval(interval);
-        });
-        this.animationIntervals = [];
+    setStoppableAnimationInterval(func, time) {
+        let id = setInterval(func, time);
+        this.animationIntervals.push(id);
+        console.log(this.animationIntervals);
     }
 
+    stopInterval() {
+        this.animationIntervals.forEach(clearInterval);     
+    
+    }
 
     applyGravity() {
         setInterval(() => {
@@ -29,18 +32,17 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-        }, 1000 / 25)
+        }, 1000 / 25);
     }
-    hit(damge) {
-        this.energy -= damge;
+
+    hit(damage) {
+        this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
             this.lastHit = new Date().getTime();
         }
     }
-
-
 
     collectCoin() {
         if (this.collectetCoins < 5) {
@@ -53,7 +55,6 @@ class MovableObject extends DrawableObject {
         if (this.collectetBottle < 5) {
             this.collectetBottle++;
             console.log('Collision with bottle, bottle collected:', this.collectetBottle);
-
         }
     }
 
@@ -67,8 +68,8 @@ class MovableObject extends DrawableObject {
         return this.energy == 0;
     }
 
-    chickenIsDead(){
-
+    chickenIsDead() {
+        // Implementiere diese Methode falls benötigt
     }
 
     isAboveGround() {
@@ -79,21 +80,12 @@ class MovableObject extends DrawableObject {
         }
     }
 
-
-
-
-
     playAnimation(images) {
-        let i = this.currentImage % images.length; //let i = 0 % 6 => 0, rest 6 0 % 6 => 0, rest 6 / 3 % 6 => 0, rest 3 / 6 % 6 => 1, rest 0 / 7 % 6 => 1, rest 1
-        //i = 0,1,2,3,4,5,0,1,2,3,4,5
+        let i = this.currentImage % images.length;
         let path = images[i];
         this.img = this.imageCache[path];
-        this.currentImage++;//
+        this.currentImage++;
     }
-
-
-
-
 
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left && // R -> L
@@ -101,7 +93,6 @@ class MovableObject extends DrawableObject {
             this.x + this.offset.left < mo.x + mo.width - mo.offset.right && // L -> R
             this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom; // B -> T
     }
-
 
     isCollidingAbove(obj) {
         return this.x + this.width > obj.x &&
@@ -112,17 +103,13 @@ class MovableObject extends DrawableObject {
 
     moveRight() {
         this.x += this.speed;
-
     }
+
     moveLeft() {
         this.x -= this.speed;
-
-
-
     }
 
     jump() {
         this.speedY = 25;
     }
 }
-

@@ -198,12 +198,20 @@ class World {
 
     checkEndTheGame() {
         if (this.character.energy <= 0) {
+            stopInterval();
             endTheGameByLost();
         } else if (this.endboss.energy <= 0) {
+            // this.stopAllIntervals();
             endTheGameByWin();
         }
     }
-
+    // stopAllIntervals() {       
+    //     this.character.stopInterval();
+    //     this.chicken.stopInterval();
+    //     this.endboss.stopInterval();
+    //     this.smallChicken.stopInterval();
+    //     // Füge weitere Objekte hinzu, die Intervalle haben könnten
+    // }
     
     
 

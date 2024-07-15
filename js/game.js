@@ -6,11 +6,14 @@ let defeatSound = new Audio('audio/defeatSound.mp3');
 let gameLost = false;
 let gameWon = false;
 
+
 function startGame(){
     gameLost = false;
     gameWon = false;
     init();
 }
+
+
 
 function endTheGameByLost(){
     world.endboss.bossMusic.pause();
@@ -45,7 +48,7 @@ function endTheGameByWin(){
 function init(){
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    
+    movableObject = new MovableObject();
     console.log('My character is', world.character);   
 }
 
