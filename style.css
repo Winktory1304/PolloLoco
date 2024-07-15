@@ -22,7 +22,7 @@ canvas {
 
 @font-face {
     font-family: 'mexican';
-    src: url(/fonts/mexican-fiesta.ttf) format('truetype');
+    src: url(./fonts/mexican-fiesta.ttf) format('truetype');
 }
 
 h1 {

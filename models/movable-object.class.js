@@ -7,12 +7,20 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     collectetCoins = 0;
     collectetBottle = 0;
+    animationIntervals = [];
     offset = {
         left: 0,
         right: 0,
         top: 0,
         bottom: 0
     };
+
+    stopInterval() {
+        this.animationIntervals.forEach((interval) => {
+            clearInterval(interval);
+        });
+        this.animationIntervals = [];
+    }
 
 
     applyGravity() {

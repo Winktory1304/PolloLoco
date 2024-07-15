@@ -15,7 +15,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
-    animationIntervals = [];
+    
     collectCoinSound = new Audio('audio/collectCoin.mp3');
     killChickenSound = new Audio('audio/killSound.mp3');
     bottleBreakSound = new Audio('audio/brokenBottle.mp3');
