@@ -93,12 +93,14 @@ class Endboss extends MovableObject {
     }
 
     hit() {
-        this.energy -= 20;
+        const damage = 20;
+        this.energy -= damage;
         if (this.energy < 0) {
             this.energy = 0;
         }
         this.isCurrentlyHurt = true;
         setTimeout(() => this.isCurrentlyHurt = false, 1000); // Hurt status lasts for 1 second
+        console.log(`Endboss hit! Current energy: ${this.energy}`);
     }
 
     isHurt() {
@@ -107,8 +109,15 @@ class Endboss extends MovableObject {
 
     handleDeath() {
         this.playAnimation(Endboss.IMAGES_DEAD);
+        this.bossMusic.pause();
         setTimeout(() => this.showImage(Endboss.IMAGES_DEAD[2]), Endboss.IMAGES_DEAD.length * 150);
-        setTimeout(() => endTheGameByWin(), Endboss.IMAGES_DEAD.length * 200);
+        setTimeout(() => {
+            world.clearAllIntervals(); // Call the clearAllIntervals method of the world instance
+            endTheGameByWin();
+        }, Endboss.IMAGES_DEAD.length * 200);
+    }
+    isDead() {
+        return this.energy <= 0;
     }
 
     isInAttackRange() {

@@ -111,7 +111,13 @@ class World {
         this.throwableObjects.forEach((throwableObject, index) => {
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
-                    enemy.hit(throwableObject.damage);
+                    if (enemy instanceof Endboss) {
+                        enemy.hit(); // Call the hit method of Endboss
+                        world.statusBarBoss.setPercentages(enemy.energy); // Update the status bar
+                        console.log(`Endboss hit! Current energy: ${enemy.energy}`);
+                    } else {
+                        enemy.hit(throwableObject.damage);
+                    }
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
                     console.log('Collision with throwable object');
@@ -205,7 +211,8 @@ class World {
         if (this.character.energy <= 0) {
             endTheGameByLost();
             this.clearAllIntervals();
-        } else if (this.endboss.energy <= 0) {
+        } else if (this.endboss.isDead()) {
+            debugger;
             endTheGameByWin();
             this.clearAllIntervals();
         }
