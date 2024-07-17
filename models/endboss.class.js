@@ -44,6 +44,7 @@ class Endboss extends MovableObject {
     y = 50;
     energy = 80;
     alertAnimationPlayed = false;
+    isCurrentlyHurt = false;
     speed = 15;
     x = 1750;
     offset = {
@@ -75,7 +76,7 @@ class Endboss extends MovableObject {
     handleAnimation() {
         if (this.isDead()) {
             this.handleDeath();
-        } else if (this.isHurt()) {
+        } else if (this.isCurrentlyHurt) {
             this.playAnimation(Endboss.IMAGES_HURT);
         } else if (this.isInAttackRange()) {
             this.playAnimation(Endboss.IMAGES_ATTACK);
@@ -88,7 +89,6 @@ class Endboss extends MovableObject {
             this.walkAndMoveLeft();
         } else {
             this.showSpawnImage();
-
         }
     }
 
@@ -97,7 +97,8 @@ class Endboss extends MovableObject {
         if (this.energy < 0) {
             this.energy = 0;
         }
-        this.isHurt();
+        this.isCurrentlyHurt = true;
+        setTimeout(() => this.isCurrentlyHurt = false, 1000); // Hurt status lasts for 1 second
     }
 
     isHurt() {
@@ -116,7 +117,6 @@ class Endboss extends MovableObject {
 
     isInAlertRange() {
         return this.checkDistance() < 300;
-
     }
 
     handleAlert() {
@@ -129,15 +129,11 @@ class Endboss extends MovableObject {
     walkAndMoveLeft() {
         this.playAnimation(Endboss.IMAGES_WALKING);
         this.moveLeft();
-
     }
 
     showSpawnImage() {
         if (this.checkDistance() > 200) {
             this.showImage(Endboss.IMAGE_SPAWN);
-
-
-
         }
     }
 
