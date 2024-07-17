@@ -71,15 +71,15 @@ class World {
         let objectsToRemove = [];
         let enemiesToRemove = [];
 
-        this.level.enemies.forEach((enemy) => {
-            this.throwableObjects.forEach((throwableObject, index) => {
+        this.throwableObjects.forEach((throwableObject, index) => {
+            this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
-                    this.bottleBreakSound.play();
-                    this.killChickenSound.play();
-                    enemy.hit(20);
-                    // playAnimation(throwableObject.x, throwableObject.y, IMAGES_SPLASH, 200); // Play the splash animation at the specified position
-                    objectsToRemove.push(index); // Index der zu entfernenden Wurfobjekte speichern
-                    enemiesToRemove.push(enemy); // Enemy zum Entfernen speichern
+                    enemy.hit(throwableObject.damage);
+                    if (enemy instanceof Endboss) {
+                        world.statusBarBoss.setPercentages(enemy.energy); // Update the status bar
+                    }
+                    objectsToRemove.push(index);
+                    enemiesToRemove.push(enemy);
                     console.log('Collision with throwable object');
                 }
             });

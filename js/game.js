@@ -33,6 +33,7 @@ function endTheGameByLost(){
 
 function endTheGameByWin(){
     if (gameWon) return; // Wenn das Spiel bereits gewonnen wurde, nichts tun
+    world.endboss.bossMusic.pause();
     gameWon = true; // Setzt den Status auf gewonnen
     winSound.play();
     let startScreen = document.getElementById('startScreen');

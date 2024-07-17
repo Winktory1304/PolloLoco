@@ -92,6 +92,18 @@ class Endboss extends MovableObject {
         }
     }
 
+    hit() {
+        this.energy -= 20;
+        if (this.energy < 0) {
+            this.energy = 0;
+        }
+        this.isHurt();
+    }
+
+    isHurt() {
+        return this.energy > 0 && this.energy < 80;
+    }
+
     handleDeath() {
         this.playAnimation(Endboss.IMAGES_DEAD);
         setTimeout(() => this.showImage(Endboss.IMAGES_DEAD[2]), Endboss.IMAGES_DEAD.length * 150);
