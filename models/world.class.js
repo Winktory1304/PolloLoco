@@ -1,8 +1,8 @@
 class World {
     character = new Character();
-    // chicken = new Chicken();
-    // endboss = new Endboss();
-    // smallChicken = new SmallChicken();
+    chicken = new Chicken();
+    endboss = new Endboss();
+    smallChicken = new SmallChicken();
     level = level1;
     ctx;
     firstContactBoss = false;
@@ -13,7 +13,7 @@ class World {
     timeOfThrow = 0;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
-    statusBarCoin = new StatusBarCoin();
+    statusBarCoin = new StatusBarCoin();   
     throwableObjects = [];
     
     collectCoinSound = new Audio('audio/collectCoin.mp3');
@@ -25,6 +25,8 @@ class World {
         this.ctx = canvas.getContext('2d'); //holt sich die id canvas, Rufe die Methode getContext('2d') dieses Elements auf, um den 2D-Zeichnungskontext zu erhalten und speichert sie in der Variable ctx
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.statusBarBoss = new StatusBarBoss();
+        this.statusBarBoss.hide(); 
         this.draw();
         this.setWorld();
 
@@ -225,6 +227,9 @@ class World {
         this.addToMap(this.statusBar);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);
+        if (this.statusBarBoss.visible) { // Only add status bar if visible
+            this.addToMap(this.statusBarBoss);
+        }
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);

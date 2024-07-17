@@ -20,7 +20,7 @@ class MovableObject extends DrawableObject {
         this.animationIntervals.push(id);
         console.log(this.animationIntervals);
     }
-   
+
     stopInterval() {
         this.animationIntervals.forEach(clearInterval);
 

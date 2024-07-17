@@ -1,4 +1,4 @@
-class Endboss extends MovableObject {    
+class Endboss extends MovableObject {
     static IMAGE_SPAWN = './img/4_enemie_boss_chicken/1_walk/G2.png';
     static IMAGES_WALKING = [
         './img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -80,19 +80,20 @@ class Endboss extends MovableObject {
         } else if (this.isInAttackRange()) {
             this.playAnimation(Endboss.IMAGES_ATTACK);
         } else if (this.isInAlertRange() && !this.alertAnimationPlayed) {
-            this.bossMusic.play(); 
-            this.bossChickenSound.play(); 
+            this.bossMusic.play();
+            this.bossChickenSound.play();
+            world.statusBarBoss.show();
             this.handleAlert();
         } else if (this.alertAnimationPlayed) {
             this.walkAndMoveLeft();
         } else {
             this.showSpawnImage();
-            
+
         }
     }
 
     handleDeath() {
-        this.playAnimation(Endboss.IMAGES_DEAD);        
+        this.playAnimation(Endboss.IMAGES_DEAD);
         setTimeout(() => this.showImage(Endboss.IMAGES_DEAD[2]), Endboss.IMAGES_DEAD.length * 150);
         setTimeout(() => endTheGameByWin(), Endboss.IMAGES_DEAD.length * 200);
     }
@@ -103,7 +104,7 @@ class Endboss extends MovableObject {
 
     isInAlertRange() {
         return this.checkDistance() < 300;
-        
+
     }
 
     handleAlert() {
@@ -116,12 +117,14 @@ class Endboss extends MovableObject {
     walkAndMoveLeft() {
         this.playAnimation(Endboss.IMAGES_WALKING);
         this.moveLeft();
+
     }
 
     showSpawnImage() {
         if (this.checkDistance() > 200) {
             this.showImage(Endboss.IMAGE_SPAWN);
-             
+
+
 
         }
     }
