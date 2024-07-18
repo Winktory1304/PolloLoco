@@ -81,8 +81,7 @@ class Endboss extends MovableObject {
         } else if (this.isInAttackRange()) {
             this.playAnimation(Endboss.IMAGES_ATTACK);
         } else if (this.isInAlertRange() && !this.alertAnimationPlayed) {
-            this.bossMusic.play();
-            this.bossChickenSound.play();
+            this.bossMusic.play();             
             world.statusBarBoss.show();
             this.handleAlert();
         } else if (this.alertAnimationPlayed) {

@@ -1,7 +1,7 @@
 class World {
     character = new Character();
     chicken = new Chicken();
-    endboss = new Endboss();
+    endboss;
     smallChicken = new SmallChicken();
     level = level1;
     ctx;
@@ -13,23 +13,22 @@ class World {
     timeOfThrow = 0;
     statusBar = new StatusBar();
     statusBarBottle = new StatusBarBottle();
-    statusBarCoin = new StatusBarCoin();   
+    statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
-    
+
     collectCoinSound = new Audio('audio/collectCoin.mp3');
     killChickenSound = new Audio('audio/killSound.mp3');
     bottleBreakSound = new Audio('audio/brokenBottle.mp3');
 
-
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext('2d'); //holt sich die id canvas, Rufe die Methode getContext('2d') dieses Elements auf, um den 2D-Zeichnungskontext zu erhalten und speichert sie in der Variable ctx
+        this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.statusBarBoss = new StatusBarBoss();
-        this.statusBarBoss.hide(); 
+        this.statusBarBoss.hide();
+        this.endboss = new Endboss(this); // Pass the world instance to the Endboss
         this.draw();
         this.setWorld();
-
         this.run();
     }
 
