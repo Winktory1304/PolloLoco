@@ -126,7 +126,7 @@ class Character extends MovableObject {
     animateActions() {
         setInterval(() => {
             if (this.isDead() && !this.deadAnimationPlayed) {
-                this.handleDeaath();
+                this.handleDeath();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.resetIdleTimer();
@@ -140,7 +140,7 @@ class Character extends MovableObject {
         }, 50);
     }
 
-    handleDeaath() {
+    handleDeath() {
         this.playAnimation(this.IMAGES_DEAD);
         debugger;
         this.world.endboss.pauseMusic();
