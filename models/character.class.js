@@ -126,8 +126,7 @@ class Character extends MovableObject {
     animateActions() {
         setInterval(() => {
             if (this.isDead() && !this.deadAnimationPlayed) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.deadAnimationPlayed = true;
+                this.handleDeaath();
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
                 this.resetIdleTimer();
@@ -139,6 +138,15 @@ class Character extends MovableObject {
                 }
             }
         }, 50);
+    }
+
+    handleDeaath() {
+        this.playAnimation(this.IMAGES_DEAD);
+        debugger;
+        this.world.endboss.pauseMusic();
+        world.clearAllIntervals();
+        endTheGameByLost();
+        this.deadAnimationPlayed = true;
     }
 
     checkIdle() {

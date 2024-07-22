@@ -37,7 +37,7 @@ class World {
             this.checkCollision();
             this.checkThrowObjects();
             this.checkFirstContactBoss();
-            this.checkEndTheGame();
+            // this.checkEndTheGame();
         }, 25);
     }
     clearAllIntervals() {

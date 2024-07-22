@@ -38,6 +38,7 @@ class Endboss extends MovableObject {
     ];
     bossMusic = new Audio('audio/bossMusic.mp3');
     bossChickenSound = new Audio('audio/bossChicken.mp3');
+    musicPlayed = false; // Neue Eigenschaft hinzugefügt
 
     width = 400;
     height = 400;
@@ -81,13 +82,20 @@ class Endboss extends MovableObject {
         } else if (this.isInAttackRange()) {
             this.playAnimation(Endboss.IMAGES_ATTACK);
         } else if (this.isInAlertRange() && !this.alertAnimationPlayed) {
-            this.bossMusic.play();             
+            this.playMusicOnce(); // Musik einmal abspielen
             world.statusBarBoss.show();
             this.handleAlert();
         } else if (this.alertAnimationPlayed) {
             this.walkAndMoveLeft();
         } else {
             this.showSpawnImage();
+        }
+    }
+
+    playMusicOnce() {
+        if (!this.musicPlayed) {
+            this.bossMusic.play();
+            this.musicPlayed = true;
         }
     }
 
@@ -119,7 +127,7 @@ class Endboss extends MovableObject {
         return this.energy <= 0;
     }
     pauseMusic() {
-        this.bossMusic.pause();
+        this.bossMusic.pause();        
     }
 
     isInAttackRange() {
