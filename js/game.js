@@ -47,10 +47,35 @@ function endTheGameByWin(){
 }
 
 function init(){
+    startGame();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     movableObject = new MovableObject();
     console.log('My character is', world.character);   
+}
+
+function startGame(){
+    let startScreen = document.getElementById('startScreen');
+    startScreen.style.display = 'none';
+    let defeatScreen = document.getElementById('defeatScreen');
+    defeatScreen.style.display = 'none';
+    let winScreen = document.getElementById('winScreen');
+    winScreen.style.display = 'none';
+    let gameScreen = document.getElementById('gameScreen');
+    gameScreen.style.display = 'unset';
+    
+}
+
+function startScreen(){
+    let startScreen = document.getElementById('startScreen');
+    startScreen.style.display = 'unset';
+    let defeatScreen = document.getElementById('defeatScreen');
+    defeatScreen.style.display = 'none';
+    let winScreen = document.getElementById('winScreen');
+    winScreen.style.display = 'none';
+    let gameScreen = document.getElementById('gameScreen');
+    gameScreen.style.display = 'none';
+
 }
 
 window.addEventListener('keydown', (e) =>{

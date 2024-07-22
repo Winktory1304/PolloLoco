@@ -71,6 +71,15 @@ h1 {
     width: 820px;
     height: 480px;
 }
+.startScreen{
+    background-image: url('./img/11_WinDefeat/startScreen.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 820px;
+    height: 480px;
+}
 
 .d-none{
     display: none;

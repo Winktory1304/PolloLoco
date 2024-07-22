@@ -27,10 +27,10 @@
     <script src="./models/throwable-object.class.js"></script>
     <script src="./js/game.js"></script>
 </head>
-<body onload="init()">
+<body onload="startScreen()">
 
-    <h1>El Pollo Loco</h1><button onclick="stopInterval()">StopInterval</button>
-    <div id="startScreen" class="startScreen"></div>
+    <h1>El Pollo Loco</h1>
+    <div id="startScreen" class="startScreen" onclick="init()"></div>
     <div id="defeatScreen" class="defeatScreen d-none"></div>
     <div id="winScreen" class="winScreen d-none"></div>
     <div id="gameScreen" class="gameScreen">
