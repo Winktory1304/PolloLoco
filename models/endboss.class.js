@@ -108,7 +108,7 @@ class Endboss extends MovableObject {
 
     handleDeath() {
         this.playAnimation(Endboss.IMAGES_DEAD);
-        this.bossMusic.pause();
+        this.pauseMusic();
         setTimeout(() => this.showImage(Endboss.IMAGES_DEAD[2]), Endboss.IMAGES_DEAD.length * 150);
         setTimeout(() => {
             world.clearAllIntervals(); // Call the clearAllIntervals method of the world instance
@@ -117,6 +117,9 @@ class Endboss extends MovableObject {
     }
     isDead() {
         return this.energy <= 0;
+    }
+    pauseMusic() {
+        this.bossMusic.pause();
     }
 
     isInAttackRange() {

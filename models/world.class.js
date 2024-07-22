@@ -208,6 +208,7 @@ class World {
 
     checkEndTheGame() {
         if (this.character.energy <= 0) {
+            this.endboss.pauseMusic()
             endTheGameByLost();
             this.clearAllIntervals();
         } else if (this.endboss.isDead()) {

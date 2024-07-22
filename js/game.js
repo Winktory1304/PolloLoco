@@ -16,8 +16,8 @@ function startGame(){
 
 
 function endTheGameByLost(){
-    world.endboss.bossMusic.pause();
     if (gameLost) return; // Wenn das Spiel bereits verloren wurde, nichts tun
+    world.endboss.bossMusic.pause();
     gameLost = true; // Setzt den Status auf verloren    
     defeatSound.currentTime = 0; // Setzt den Sound auf den Anfang
     defeatSound.play();
@@ -32,9 +32,9 @@ function endTheGameByLost(){
 }
 
 function endTheGameByWin(){
-    if (gameWon) return; // Wenn das Spiel bereits gewonnen wurde, nichts tun
+    if (gameWon) return;
     world.endboss.bossMusic.pause();
-    gameWon = true; // Setzt den Status auf gewonnen
+    gameWon = true; 
     winSound.play();
     let startScreen = document.getElementById('startScreen');
     startScreen.style.display = 'none';
