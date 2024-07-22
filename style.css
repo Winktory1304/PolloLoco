@@ -81,6 +81,19 @@ h1 {
     height: 480px;
 }
 
+.startScreen:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+    
+}
+
 .d-none{
     display: none;
+}
+
+
+.controls-container p{
+    font-size: 48px;
+    color: aliceblue;
+    background-color: rgba(0, 0, 0, 0.5);
 }

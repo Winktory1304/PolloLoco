@@ -48,6 +48,7 @@ function endTheGameByWin(){
 
 function init(){
     startGame();
+    initLevel1();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     movableObject = new MovableObject();
