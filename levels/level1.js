@@ -14,7 +14,7 @@ function initLevel1(){
             new SmallChicken(),
             new SmallChicken(),
             new SmallChicken(),
-            new Endboss()
+            // new Endboss()
         ],    
         [
             new Clouds()

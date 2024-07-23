@@ -1,7 +1,7 @@
 class World {
     character = new Character();
     chicken = new Chicken();
-    // endboss = new Endboss();
+    endboss = new Endboss();
     smallChicken = new SmallChicken();
     level = level1;
     ctx;
@@ -26,7 +26,7 @@ class World {
         this.keyboard = keyboard;
         this.statusBarBoss = new StatusBarBoss();
         this.statusBarBoss.hide();
-        // this.endboss = new Endboss(this); // Pass the world instance to the Endboss
+
         this.draw();
         this.setWorld();
         this.run();
@@ -79,7 +79,7 @@ class World {
                     }
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
-                    
+
                 }
             });
         });
@@ -92,7 +92,7 @@ class World {
         // Entferne Feinde, wenn es sich nicht um den Endboss handelt
         if (!this.endboss) {
             enemiesToRemove.forEach((enemy) => {
-            this.removeEnemyAtIndex(enemy);
+                this.removeEnemyAtIndex(enemy);
             });
         }
     }
@@ -101,7 +101,7 @@ class World {
         this.killChickenSound.play();
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
-       
+
     }
     checkCollisionBottleWithEnemy() {
         let objectsToRemove = [];
@@ -113,13 +113,13 @@ class World {
                     if (enemy instanceof Endboss) {
                         enemy.hit(); // Call the hit method of Endboss
                         world.statusBarBoss.setPercentages(enemy.energy); // Update the status bar
-                        
+
                     } else {
                         enemy.hit(throwableObject.damage);
                     }
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
-                    
+
                 }
             });
         });
@@ -138,7 +138,7 @@ class World {
         if (index > -1) {
             setTimeout(() => {
                 this.level.enemies.splice(index, 1);
-                
+
             }, 2000);
         }
     }
@@ -146,7 +146,7 @@ class World {
     handleCharacterHitByEnemy() {
         this.character.hit(10);
         this.statusBar.setPercentages(this.character.energy);
-       
+
     }
 
     checkCollisionWithCoins() {
@@ -240,9 +240,10 @@ class World {
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
+        this.addToMap(this.endboss);
         this.addObjectsToMap(this.level.clouds);
         this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.bottles);        
+        this.addObjectsToMap(this.level.bottles);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
 

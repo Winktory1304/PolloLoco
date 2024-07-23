@@ -82,7 +82,7 @@ class Endboss extends MovableObject {
             this.playAnimation(Endboss.IMAGES_HURT);
         } else if (this.isInAttackRange()) {
             this.playAnimation(Endboss.IMAGES_ATTACK);
-        } else if (this.isInAlertRange() && !this.alertAnimationPlayed && !this.isCurrentlyHurt && !this.isDead() && !this.musicPlayedFunction) {
+        } else if (this.isInAlertRange() && !this.alertAnimationPlayed ) {
             this.musicPlayedFunction = true;
             this.playMusicOnce(); // Musik einmal abspielen
             world.statusBarBoss.show();
@@ -97,11 +97,10 @@ class Endboss extends MovableObject {
     playMusicOnce() {
         if (!this.musicPlayed) {
             console.log('Setting musicPlayed to true'); 
-            this.musicPlayed = true;  // Setze die Flagge sofort
-            setTimeout(() => {
+            this.musicPlayed = true;  // Setze die Flagge sofort            
                 this.bossMusic.play();
                 console.log('Boss music played'); 
-            }, 1000);
+            
         }
     }
     
