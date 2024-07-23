@@ -142,7 +142,7 @@ class Character extends MovableObject {
 
     handleDeath() {
         this.playAnimation(this.IMAGES_DEAD);
-        debugger;
+        
         this.world.endboss.pauseMusic();
         world.clearAllIntervals();
         endTheGameByLost();

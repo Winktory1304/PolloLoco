@@ -1,7 +1,7 @@
 class World {
     character = new Character();
     chicken = new Chicken();
-    endboss;
+    // endboss = new Endboss();
     smallChicken = new SmallChicken();
     level = level1;
     ctx;
@@ -15,7 +15,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
-
+    bossMusic = new Audio('audio/bossMusic.mp3');
     collectCoinSound = new Audio('audio/collectCoin.mp3');
     killChickenSound = new Audio('audio/killSound.mp3');
     bottleBreakSound = new Audio('audio/brokenBottle.mp3');
@@ -26,7 +26,7 @@ class World {
         this.keyboard = keyboard;
         this.statusBarBoss = new StatusBarBoss();
         this.statusBarBoss.hide();
-        this.endboss = new Endboss(this); // Pass the world instance to the Endboss
+        // this.endboss = new Endboss(this); // Pass the world instance to the Endboss
         this.draw();
         this.setWorld();
         this.run();
@@ -36,7 +36,7 @@ class World {
         setInterval(() => {
             this.checkCollision();
             this.checkThrowObjects();
-            this.checkFirstContactBoss();
+            // this.checkFirstContactBoss();
             // this.checkEndTheGame();
         }, 25);
     }
@@ -79,7 +79,7 @@ class World {
                     }
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
-                    console.log('Collision with throwable object');
+                    
                 }
             });
         });
@@ -101,7 +101,7 @@ class World {
         this.killChickenSound.play();
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
-        console.log('Collision from above with enemy');
+       
     }
     checkCollisionBottleWithEnemy() {
         let objectsToRemove = [];
@@ -113,13 +113,13 @@ class World {
                     if (enemy instanceof Endboss) {
                         enemy.hit(); // Call the hit method of Endboss
                         world.statusBarBoss.setPercentages(enemy.energy); // Update the status bar
-                        console.log(`Endboss hit! Current energy: ${enemy.energy}`);
+                        
                     } else {
                         enemy.hit(throwableObject.damage);
                     }
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
-                    console.log('Collision with throwable object');
+                    
                 }
             });
         });
@@ -138,7 +138,7 @@ class World {
         if (index > -1) {
             setTimeout(() => {
                 this.level.enemies.splice(index, 1);
-                console.log('Enemy removed from level');
+                
             }, 2000);
         }
     }
@@ -146,7 +146,7 @@ class World {
     handleCharacterHitByEnemy() {
         this.character.hit(10);
         this.statusBar.setPercentages(this.character.energy);
-        console.log('Collision with Character, energy', this.character.energy);
+       
     }
 
     checkCollisionWithCoins() {
@@ -198,13 +198,13 @@ class World {
 
     // -------------------------------------------------------------------------
 
-    checkFirstContactBoss() {
-        if (this.firstContactBoss && !this.firstContactBosshandle) {
-            //play sound
-            console.log('Rohhhharrr');
-            this.firstContactBosshandle = true;           
-        }
-    }
+    // checkFirstContactBoss() {
+    //     if (this.firstContactBoss && !this.firstContactBosshandle) {
+    //         //play sound
+    //         console.log('Rohhhharrr');
+    //         this.firstContactBosshandle = true;           
+    //     }
+    // }
 
     checkEndTheGame() {
         if (this.character.energy <= 0) {

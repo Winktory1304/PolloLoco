@@ -18,7 +18,7 @@ class MovableObject extends DrawableObject {
     setStoppableAnimationInterval(func, time) {
         let id = setInterval(func, time);
         this.animationIntervals.push(id);
-        console.log(this.animationIntervals);
+       
     }
 
     stopInterval() {
@@ -47,14 +47,14 @@ class MovableObject extends DrawableObject {
     collectCoin() {
         if (this.collectetCoins < 5) {
             this.collectetCoins++;
-            console.log('Collision with Coin, coins collected:', this.collectetCoins);
+            
         }
     }
 
     collectBottle() {
         if (this.collectetBottle < 5) {
             this.collectetBottle++;
-            console.log('Collision with bottle, bottle collected:', this.collectetBottle);
+            
         }
     }
 
