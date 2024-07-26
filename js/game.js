@@ -64,6 +64,8 @@ function startGame(){
     winScreen.style.display = 'none';
     let gameScreen = document.getElementById('gameScreen');
     gameScreen.style.display = 'unset';
+    let controlContainer = document.getElementById('controlsContainer');
+    controlContainer.style.display = 'none';
     
 }
 
