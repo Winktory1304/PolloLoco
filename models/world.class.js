@@ -71,17 +71,21 @@ class World {
         let enemiesToRemove = [];
 
         this.throwableObjects.forEach((throwableObject, index) => {
+            // Prüfen der Kollision mit normalen Feinden
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
                     enemy.hit(throwableObject.damage);
-                    if (enemy instanceof Endboss) {
-                        world.statusBarBoss.setPercentages(enemy.energy); // Update the status bar
-                    }
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
-
                 }
             });
+    
+            // Prüfen der Kollision mit dem Endboss
+            if (this.endboss.isColliding(throwableObject) && !this.endboss.isDead()) {
+                this.endboss.hit(throwableObject.damage);
+                this.statusBarBoss.setPercentages(this.endboss.energy); // Update the status bar
+                objectsToRemove.push(index);
+            }
         });
 
         // Entferne Wurfobjekte in umgekehrter Reihenfolge, um Index-Probleme zu vermeiden
