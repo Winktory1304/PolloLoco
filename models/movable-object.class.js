@@ -18,7 +18,7 @@ class MovableObject extends DrawableObject {
     setStoppableAnimationInterval(func, time) {
         let id = setInterval(func, time);
         this.animationIntervals.push(id);
-       
+
     }
 
     stopInterval() {
@@ -47,14 +47,23 @@ class MovableObject extends DrawableObject {
     collectCoin() {
         if (this.collectetCoins < 5) {
             this.collectetCoins++;
-            
+
         }
     }
 
     collectBottle() {
         if (this.collectetBottle < 5) {
             this.collectetBottle++;
-            
+            this.changeBorderColor();
+        }
+    }
+
+    changeBorderColor() {
+        const button = document.querySelector('.btn-mobile-bottle');
+        if (this.collectetBottle > 0) {
+            button.style.borderColor = '#52DA1A';
+        } else {
+            button.style.borderColor = 'red';
         }
     }
 

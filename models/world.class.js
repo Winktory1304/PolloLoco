@@ -178,8 +178,10 @@ class World {
 
     handleBottleCollision(index) {
         this.character.collectBottle();
+        this.character.changeBorderColor();
         this.statusBarBottle.setPercentages(this.character.collectetBottle);
         this.level.bottles.splice(index, 1);
+        this.character.changeBorderColor();
     }
 
     // -------------------------------------------------------------------------
@@ -191,7 +193,7 @@ class World {
             this.character.collectetBottle--;
             this.statusBarBottle.setPercentages(this.character.collectetBottle);
             this.timeOfThrow = new Date().getTime();
-
+            this.character.changeBorderColor(); // Aktualisiere die Randfarbe nach dem Werfen einer Flasche
         }
     }
 

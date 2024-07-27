@@ -338,28 +338,39 @@ h1 {
     position: absolute;
 }
 
-.btn-mobile {
+/* Gemeinsame Stile für alle mobilen Buttons */
+.btn-mobile, .btn-mobile-bottle, .btn-mobile-jump {
     background: rgba(0, 0, 0, 0.3);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    border: solid white;
-    padding: 10px;
     margin-bottom: 10px;
+}
+
+/* Spezifische Stile für btn-mobile */
+.btn-mobile {
+    border: solid #52DA1A;
+    padding: 10px;
     width: 30px;
     height: auto;
 }
 
+/* Spezifische Stile für btn-mobile-bottle */
 .btn-mobile-bottle {
-    background: rgba(0, 0, 0, 0.3);
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    border: solid white;
-    margin-bottom: 10px;
+    border: solid red;
     width: 50px;
     height: 50px;
     object-fit: cover;
 }
 
+/* Spezifische Stile für btn-mobile-jump */
+.btn-mobile-jump {
+    border: solid #52DA1A;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Spezifische Stile für Bilder in btn-mobile */
 .btn-mobile img {
     width: 16px;
     height: 16px;
