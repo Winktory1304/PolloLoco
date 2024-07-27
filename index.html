@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,7 @@
     <script src="./models/statusbar-coin.class.js"></script>
     <script src="./models/statusbar-boss.class.js"></script>
     <script src="./models/coins.class.js"></script>
-    <script src="./models/bottle.class.js"></script>  
+    <script src="./models/bottle.class.js"></script>
     <script src="./models/chicken.class.js"></script>
     <script src="./models/small-chicken.class.js"></script>
     <script src="./models/clouds.class.js"></script>
@@ -25,29 +26,44 @@
     <script src="./models/level.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./models/throwable-object.class.js"></script>
-    <script src="./js/game.js"></script>
+    
 </head>
+
 <body onload="startScreen()">
 
     <h1>El Pollo Loco</h1>
     <div>
-        
+
     </div>
     <div id="startScreen" class="startScreen" onclick="init()">
     </div>
-    <div id="controlsContainer" class="controls-container">
-        <h2>Steuerung</h2>
-        <p>Verwende die Pfeiltasten zum Bewegen des Charakters.</p>
-        <p>Drücke die Leertaste, um den Charakter springen zu lassen.</p>
-        <p>Verwende die Taste "D", um einen Gegenstand zu werfen.</p>
+    <!-- Trigger/Open The Modal -->
+    <button id="myBtn">Open Modal</button>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">       
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+                <h2>Steuerung</h2>
+            </div>
+            <div class="modal-body">
+                
+                <p>Verwende die Pfeiltasten zum Bewegen des Charakters.</p>
+                <p>Drücke die Leertaste, um den Charakter springen zu lassen.</p>
+                <p>Verwende die Taste "D", um einen Gegenstand zu werfen.</p>
+            </div>            
+        </div>
     </div>
     <div id="defeatScreen" class="defeatScreen d-none"></div>
     <div id="winScreen" class="winScreen d-none"></div>
     <div id="gameScreen" class="gameScreen">
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
-    
 
-    
+
+    <script src="./js/game.js"></script>
 </body>
+
 </html>
