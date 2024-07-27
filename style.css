@@ -12,7 +12,6 @@ body {
     min-height: 100vh;
     margin: 0;
     scroll-behavior: smooth;
-
 }
 
 canvas {
@@ -32,12 +31,17 @@ h1 {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
-
-
 /* Smartphones (portrait and landscape) ----------- */
 @media only screen and (max-width: 720px) {
     canvas {
         width: 100%;
+    }
+
+    /* Hide h1 in landscape mode */
+    @media (orientation: landscape) {
+        h1 {
+            display: none;
+        }
     }
 }
 
@@ -87,13 +91,11 @@ h1 {
 .startScreen:hover {
     transform: scale(1.1);
     cursor: pointer;
-
 }
 
 .d-none {
     display: none;
 }
-
 
 .controls-container p {
     font-size: 48px;
@@ -101,32 +103,21 @@ h1 {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-/**-----------Modal------------- */
-/* The Modal (background) */
+/* Modal */
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     padding-top: 100px;
-    /* Location of the box */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
 }
 
-/* Modal Content */
 .modal-content {
     position: relative;
     background-color: #fefefe;
@@ -138,35 +129,33 @@ h1 {
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
 }
 
-/* Add Animation */
 @-webkit-keyframes animatetop {
     from {
         top: -300px;
-        opacity: 0
+        opacity: 0;
     }
 
     to {
         top: 0;
-        opacity: 1
+        opacity: 1;
     }
 }
 
 @keyframes animatetop {
     from {
         top: -300px;
-        opacity: 0
+        opacity: 0;
     }
 
     to {
         top: 0;
-        opacity: 1
+        opacity: 1;
     }
 }
 
-/* The Close Button */
 .close {
     color: white;
     float: right;
@@ -186,7 +175,6 @@ h1 {
     background-color: #52DA1A;
     color: black;
     font-size: 36px;
-
 }
 
 .modal-body {
@@ -194,7 +182,6 @@ h1 {
     color: black;
     font-size: 24px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-
 }
 
 .modal-footer {
@@ -203,9 +190,7 @@ h1 {
     color: white;
 }
 
-
-
-/* CSS */
+/* Control Button */
 .control-setup-button {
     margin-top: 48px;
     background-color: #52DA1A;
@@ -256,5 +241,48 @@ h1 {
     .control-setup-button {
         padding: .75rem 3rem;
         font-size: 1.25rem;
+    }
+}
+
+/* Rotate Message */
+.rotateMessage {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 720px) and (orientation: portrait) {
+    .rotateMessage {
+        display: flex;
+    }
+}
+
+@media (max-width: 1024px) and (orientation: landscape) and (max-height: 600px) {
+    h1 {
+        display: none;
+    }
+
+    .startScreen {
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        position: relative;
+        width: 100%;
+        height: 100vh;
+    }
+    .control-setup-button{
+        display: none;
     }
 }

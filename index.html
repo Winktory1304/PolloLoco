@@ -26,22 +26,18 @@
     <script src="./models/level.class.js"></script>
     <script src="./levels/level1.js"></script>
     <script src="./models/throwable-object.class.js"></script>
-    
 </head>
 
 <body onload="startScreen()">
 
-    <h1>El Pollo Loco</h1>
-    <div>
-
-    </div>
-    <div id="startScreen" class="startScreen" onclick="init()">
-    </div>
+    <h1 class="h1">El Pollo Loco</h1>
+    <div></div>
+    <div id="startScreen" class="startScreen" onclick="init()"></div>
     <!-- Trigger/Open The Modal -->
     <button id="controlSetupButton" role="button" class="control-setup-button">Steuerung</button>
 
     <!-- The Modal -->
-    <div id="myModal" class="modal">       
+    <div id="myModal" class="modal">
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
@@ -49,11 +45,10 @@
                 <h2>Steuerung</h2>
             </div>
             <div class="modal-body">
-                
                 <p>Verwende die Pfeiltasten zum Bewegen des Charakters.</p>
                 <p>Drücke die Leertaste, um den Charakter springen zu lassen.</p>
                 <p>Verwende die Taste "D", um einen Gegenstand zu werfen.</p>
-            </div>            
+            </div>
         </div>
     </div>
     <div id="defeatScreen" class="defeatScreen d-none"></div>
@@ -61,7 +56,7 @@
     <div id="gameScreen" class="gameScreen">
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
-
+    <div id="rotateMessage" class="rotateMessage">Bitte drehen Sie Ihr Gerät</div>
 
     <script src="./js/game.js"></script>
 </body>
