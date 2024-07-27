@@ -32,7 +32,7 @@
 
     <h1 class="h1">El Pollo Loco</h1>
     <div></div>
-    <div id="startScreen" class="startScreen" onclick="init()"></div>
+    <div id="startScreen" class="startScreen" onclick="startGame()"></div>
     <!-- Trigger/Open The Modal -->
     <button id="controlSetupButton" role="button" class="control-setup-button">Steuerung</button>
 
@@ -56,6 +56,7 @@
     <div id="gameScreen" class="gameScreen">
         <canvas id="canvas" width="720" height="480"></canvas>
     </div>
+    <button id="restartButton" style="display: none;" onclick="startGame()">Restart Game</button>
     <div id="rotateMessage" class="rotateMessage">Bitte drehen Sie Ihr Gerät</div>
     <div class="btn-mobile-wrapper" id="btn-mobile-wrapper">
         <div class="btn-mobile-flex">

@@ -9,7 +9,17 @@ let gameWon = false;
 function startGame() {
     gameLost = false;
     gameWon = false;
-    init();
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('defeatScreen').style.display = 'none';
+    document.getElementById('winScreen').style.display = 'none';
+    document.getElementById('gameScreen').style.display = 'unset';
+    document.getElementById('controlSetupButton').style.display = 'none';
+    document.getElementById('restartButton').style.display = 'none'; // Hide restart button when the game starts
+    initLevel1();
+    canvas = document.getElementById('canvas');
+    world = new World(canvas, keyboard);
+    console.log('My character is', world.character);
+    showMobileButtons(); // Ensure mobile buttons are visible when the game restarts
 }
 
 function endTheGameByLost() {
@@ -22,6 +32,8 @@ function endTheGameByLost() {
     document.getElementById('defeatScreen').style.display = 'unset';
     document.getElementById('winScreen').style.display = 'none';
     document.getElementById('gameScreen').style.display = 'none';
+    hideMobileButtons();
+    showRestartButton();
 }
 
 function endTheGameByWin() {
@@ -33,22 +45,26 @@ function endTheGameByWin() {
     document.getElementById('defeatScreen').style.display = 'none';
     document.getElementById('winScreen').style.display = 'unset';
     document.getElementById('gameScreen').style.display = 'none';
+    hideMobileButtons();
+    showRestartButton();
 }
 
-function init() {
-    startGame();
-    initLevel1();
-    canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard);
-    console.log('My character is', world.character);
+function hideMobileButtons() {
+    let mobileButtons = document.querySelectorAll('.btn-mobile, .btn-mobile-bottle, .btn-mobile-jump');
+    mobileButtons.forEach(button => {
+        button.style.display = 'none';
+    });
 }
 
-function startGame() {
-    document.getElementById('startScreen').style.display = 'none';
-    document.getElementById('defeatScreen').style.display = 'none';
-    document.getElementById('winScreen').style.display = 'none';
-    document.getElementById('gameScreen').style.display = 'unset';
-    document.getElementById('controlSetupButton').style.display = 'none';
+function showMobileButtons() {
+    let mobileButtons = document.querySelectorAll('.btn-mobile, .btn-mobile-bottle, .btn-mobile-jump');
+    mobileButtons.forEach(button => {
+        button.style.display = 'block';
+    });
+}
+
+function showRestartButton() {
+    document.getElementById('restartButton').style.display = 'block';
 }
 
 function startScreen() {
@@ -57,28 +73,6 @@ function startScreen() {
     document.getElementById('winScreen').style.display = 'none';
     document.getElementById('gameScreen').style.display = 'none';
 }
-
-// window.addEventListener('keydown', (e) => {
-//     if (e.code == "ArrowRight") keyboard.RIGHT = true;
-//     if (e.code == "ArrowLeft") keyboard.LEFT = true;
-//     if (e.code == "ArrowDown") keyboard.DOWN = true;
-//     if (e.code == "ArrowUp") keyboard.UP = true;
-//     if (e.code == "Space") keyboard.SPACE = true;
-//     if (e.keyCode == 68) keyboard.D = true;
-// });
-
-// window.addEventListener('keyup', (e) => {
-//     if (e.code == "ArrowRight") keyboard.RIGHT = false;
-//     if (e.code == "ArrowLeft") keyboard.LEFT = false;
-//     if (e.code == "ArrowDown") keyboard.DOWN = false;
-//     if (e.code == "ArrowUp") keyboard.UP = false;
-//     if (e.code == "Space") keyboard.SPACE = false;
-//     if (e.keyCode == 68) keyboard.D = false;
-// });
-
-
-
-
 
 let modal = document.getElementById("myModal");
 let btn = document.getElementById("controlSetupButton");
