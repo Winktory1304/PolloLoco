@@ -58,27 +58,31 @@ function startScreen() {
     document.getElementById('gameScreen').style.display = 'none';
 }
 
-window.addEventListener('keydown', (e) => {
-    if (e.code == "ArrowRight") keyboard.RIGHT = true;
-    if (e.code == "ArrowLeft") keyboard.LEFT = true;
-    if (e.code == "ArrowDown") keyboard.DOWN = true;
-    if (e.code == "ArrowUp") keyboard.UP = true;
-    if (e.code == "Space") keyboard.SPACE = true;
-    if (e.keyCode == 68) keyboard.D = true;
-});
+// window.addEventListener('keydown', (e) => {
+//     if (e.code == "ArrowRight") keyboard.RIGHT = true;
+//     if (e.code == "ArrowLeft") keyboard.LEFT = true;
+//     if (e.code == "ArrowDown") keyboard.DOWN = true;
+//     if (e.code == "ArrowUp") keyboard.UP = true;
+//     if (e.code == "Space") keyboard.SPACE = true;
+//     if (e.keyCode == 68) keyboard.D = true;
+// });
 
-window.addEventListener('keyup', (e) => {
-    if (e.code == "ArrowRight") keyboard.RIGHT = false;
-    if (e.code == "ArrowLeft") keyboard.LEFT = false;
-    if (e.code == "ArrowDown") keyboard.DOWN = false;
-    if (e.code == "ArrowUp") keyboard.UP = false;
-    if (e.code == "Space") keyboard.SPACE = false;
-    if (e.keyCode == 68) keyboard.D = false;
-});
+// window.addEventListener('keyup', (e) => {
+//     if (e.code == "ArrowRight") keyboard.RIGHT = false;
+//     if (e.code == "ArrowLeft") keyboard.LEFT = false;
+//     if (e.code == "ArrowDown") keyboard.DOWN = false;
+//     if (e.code == "ArrowUp") keyboard.UP = false;
+//     if (e.code == "Space") keyboard.SPACE = false;
+//     if (e.keyCode == 68) keyboard.D = false;
+// });
 
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("controlSetupButton");
-var span = document.getElementsByClassName("close")[0];
+
+
+
+
+let modal = document.getElementById("myModal");
+let btn = document.getElementById("controlSetupButton");
+let span = document.getElementsByClassName("close")[0];
 
 btn.onclick = function () {
     modal.style.display = "block";
