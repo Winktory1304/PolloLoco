@@ -134,7 +134,7 @@ class Endboss extends MovableObject {
         return this.energy <= 0;
     }
     pauseMusic() {
-        this.bossMusic.pause();
+        bossMusic.pause();
     }
 
     isInAttackRange() {

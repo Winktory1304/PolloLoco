@@ -398,3 +398,24 @@ h1 {
 .btn-mobile-mute:hover, .btn-mobile-volume:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* CSS */
+#restartButton {
+    display: none; /* Initially hidden */
+    padding: 10px 20px;
+    background-color: #52DA1A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed; /* Position fixed to stay at the right edge of the screen */
+     /* Distance from the right edge */
+    top: 90%; /* Position in the middle of the screen vertically */
+    transform: translateY(-50%); /* Center the button vertically */
+    z-index: 1000; /* Ensure the button is above other elements */
+}
+
+/* Optional: Add hover effect */
+#restartButton:hover {
+    background-color: #45C619;
+}

@@ -15,10 +15,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     statusBarCoin = new StatusBarCoin();
     throwableObjects = [];
-    bossMusic = new Audio('audio/bossMusic.mp3');
-    collectCoinSound = new Audio('audio/collectCoin.mp3');
-    killChickenSound = new Audio('audio/killSound.mp3');
-    bottleBreakSound = new Audio('audio/brokenBottle.mp3');
+   
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -69,12 +66,11 @@ class World {
     checkCollisionThrowableObjects() {
         let objectsToRemove = [];
         let enemiesToRemove = [];
-
         this.throwableObjects.forEach((throwableObject, index) => {
             // Prüfen der Kollision mit normalen Feinden
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
-                    enemy.hit(throwableObject.damage);
+                    enemy.hit(10);
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
                 }
@@ -102,7 +98,7 @@ class World {
     }
 
     handleEnemyCollisionFromAbove(enemy) {
-        this.killChickenSound.play();
+        killChickenSound.play();
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
 
@@ -163,7 +159,7 @@ class World {
 
     handleCoinCollision(index) {
         this.character.collectCoin();
-        this.collectCoinSound.play();
+        collectCoinSound.play();
         this.statusBarCoin.setPercentages(this.character.collectetCoins);
         this.level.coins.splice(index, 1);
     }
