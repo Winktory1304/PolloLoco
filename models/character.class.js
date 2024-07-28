@@ -148,7 +148,7 @@ class Character extends MovableObject {
 
     checkIdle() {
         this.idleTimer = null;
-        this.idleTime = 3000; // 5 seconds
+        this.idleTime = 15000; 
 
         this.startIdleTimer();
     }
