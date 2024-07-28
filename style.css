@@ -392,7 +392,6 @@ h1 {
     }
 }
 
-/* General styles */
 .footer-buttons {
     display: flex;
     justify-content: center;
@@ -438,7 +437,7 @@ h1 {
     }
 }
 
-/* General styles */
+
 .back-button {
     margin-top: 20px;
     background-color: #52DA1A;

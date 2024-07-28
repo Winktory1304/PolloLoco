@@ -11,6 +11,7 @@ let bottleBreakSound = new Audio('audio/brokenBottle.mp3');
 
 const audioElements = [bossMusic, winSound, defeatSound, walkingSound, snoreSound, ingameMusic, menuSong, collectCoinSound, killChickenSound, bottleBreakSound];
 
+
 function toggleMute() {
     const muteButtonMobile = document.getElementById('btnMuteMobile');
     const volumeButtonMobile = document.getElementById('btnVolumeMobile');
