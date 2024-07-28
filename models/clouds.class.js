@@ -19,8 +19,4 @@ class Clouds extends MovableObject {
 }
 
 
-// const animateCloud = () => {
-//     this.x -= this.speed;
-//     requestAnimationFrame(animateCloud);
-// }
-// animateCloud();
+

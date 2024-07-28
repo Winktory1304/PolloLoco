@@ -99,6 +99,9 @@ class Character extends MovableObject {
         this.animateActions();
     }
 
+    /**
+     * Animates the movement of the character.
+     */
     animateMovement() {
         setInterval(() => {
             walkingSound.pause();
@@ -122,6 +125,11 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Animates the actions of the character.
+     * This method is responsible for handling the character's animations based on its current state.
+     * It uses setInterval to repeatedly check the character's state and play the appropriate animation.
+     */
     animateActions() {
         setInterval(() => {
             if (this.isDead() && !this.deadAnimationPlayed) {
@@ -139,6 +147,9 @@ class Character extends MovableObject {
         }, 50);
     }
 
+    /**
+     * Handles the death of the character.
+     */
     handleDeath() {
         this.playAnimation(this.IMAGES_DEAD);     
         world.clearAllIntervals();
@@ -146,6 +157,9 @@ class Character extends MovableObject {
         this.deadAnimationPlayed = true;
     }
 
+    /**
+     * Checks if the character is idle and starts the idle timer.
+     */
     checkIdle() {
         this.idleTimer = null;
         this.idleTime = 15000; 
