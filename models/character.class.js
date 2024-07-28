@@ -73,20 +73,20 @@ class Character extends MovableObject {
 
     resetIdleTimer() {
         clearTimeout(this.idleTimer);
-        snore_sound.pause();
+        snoreSound.pause();
         this.startIdleTimer();
     }
 
     startIdleTimer() {
         this.idleTimer = setTimeout(() => {
-            snore_sound.play();
+            snoreSound.play();
             this.playIdleAnimation();
         }, this.idleTime);
     }
 
     playIdleAnimation() {
         this.idleAnimationInterval = setInterval(() => {
-            if (snore_sound.paused) {
+            if (snoreSound.paused) {
                 clearInterval(this.idleAnimationInterval);
             } else {
                 this.playAnimation(this.IMAGES_WAITING);
@@ -101,16 +101,16 @@ class Character extends MovableObject {
 
     animateMovement() {
         setInterval(() => {
-            walkig_sound.pause();
+            walkingSound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
-                walkig_sound.play();
+                walkingSound.play();
                 this.resetIdleTimer();
                 this.otherDirection = false;
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
-                walkig_sound.play();
+                walkingSound.play();
                 this.resetIdleTimer();
                 this.otherDirection = true;
             }

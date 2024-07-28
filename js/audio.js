@@ -1,15 +1,15 @@
 let bossMusic = new Audio('audio/bossMusic.mp3');
 let winSound = new Audio('audio/winSound.mp3');
 let defeatSound = new Audio('audio/defeatSound.mp3');
-let walkig_sound = new Audio('audio/walk.mp3');
-let snore_sound = new Audio('audio/snore.mp3');
+let walkingSound = new Audio('audio/walk.mp3');
+let snoreSound = new Audio('audio/snore.mp3');
 let ingameMusic = new Audio('audio/ingameMusic.mp3');
 let menuSong = new Audio('audio/menuSong.mp3');
 
 function toggleMute() {
     const muteButton = document.getElementById('btnMute');
     const volumeButton = document.getElementById('btnVolume');
-    const audioElements = document.querySelectorAll('audio'); // Alle Audio-Elemente auf der Seite
+    const audioElements = [bossMusic, winSound, defeatSound, walkingSound, snoreSound, ingameMusic, menuSong];
 
     if (muteButton.style.display === 'none') {
         // Zeige den Mute-Button und verstecke den Volume-Button
