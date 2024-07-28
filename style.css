@@ -371,7 +371,8 @@ h1 {
 }
 
 /* Stile für die Mute- und Volume-Buttons */
-.btn-mobile-mute, .btn-mobile-volume {
+.btn-mobile-mute, .btn-mobile-volume,
+.btn-desktop-mute, .btn-desktop-volume {
     background: rgba(0, 0, 0, 0.3);
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
@@ -386,18 +387,46 @@ h1 {
     border: solid #52DA1A; /* Standard grün */
 }
 
-.btn-mobile-mute.hidden, .btn-mobile-volume.hidden {
-    display: none;
+/* Mobil spezifische Stile */
+.btn-mobile-mute, .btn-mobile-volume {
+    display: none; /* Verstecke standardmäßig */
 }
 
-.btn-mobile-mute.active {
+/* Desktop spezifische Stile */
+.btn-desktop-mute, .btn-desktop-volume {
+    display: none; /* Verstecke standardmäßig */
+}
+
+.btn-mobile-mute.active, .btn-desktop-mute.active {
     border: solid red; /* Roter Rand, wenn Mute-Button aktiv ist */
 }
 
 /* Optional: Hover-Effekte */
-.btn-mobile-mute:hover, .btn-mobile-volume:hover {
+.btn-mobile-mute:hover, .btn-mobile-volume:hover,
+.btn-desktop-mute:hover, .btn-desktop-volume:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* Media Query für Mobilgeräte */
+@media (max-width: 1024px) {
+    .btn-mobile-mute {
+        display: none; /* Verstecke mobile Mute-Button standardmäßig */
+    }
+    .btn-mobile-volume {
+        display: block; /* Zeige mobile Volume-Button */
+    }
+}
+
+/* Media Query für Desktops */
+@media (min-width: 1025px) {
+    .btn-desktop-mute {
+        display: none; /* Verstecke Desktop Mute-Button standardmäßig */
+    }
+    .btn-desktop-volume {
+        display: block; /* Zeige Desktop Volume-Button */
+    }
+}
+
 
 /* CSS */
 #restartButton {

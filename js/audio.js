@@ -9,15 +9,20 @@ let collectCoinSound = new Audio('audio/collectCoin.mp3');
 let killChickenSound = new Audio('audio/killSound.mp3');
 let bottleBreakSound = new Audio('audio/brokenBottle.mp3');
 
-function toggleMute() {
-    const muteButton = document.getElementById('btnMute');
-    const volumeButton = document.getElementById('btnVolume');
-    const audioElements = [bossMusic, winSound, defeatSound, walkingSound, snoreSound, ingameMusic, menuSong, collectCoinSound, killChickenSound, bottleBreakSound];
+const audioElements = [bossMusic, winSound, defeatSound, walkingSound, snoreSound, ingameMusic, menuSong, collectCoinSound, killChickenSound, bottleBreakSound];
 
-    if (muteButton.style.display === 'none') {
+function toggleMute() {
+    const muteButtonMobile = document.getElementById('btnMuteMobile');
+    const volumeButtonMobile = document.getElementById('btnVolumeMobile');
+    const muteButtonDesktop = document.getElementById('btnMuteDesktop');
+    const volumeButtonDesktop = document.getElementById('btnVolumeDesktop');
+
+    if (muteButtonMobile.style.display === 'none') {
         // Zeige den Mute-Button und verstecke den Volume-Button
-        muteButton.style.display = 'block';
-        volumeButton.style.display = 'none';
+        muteButtonMobile.style.display = 'block';
+        volumeButtonMobile.style.display = 'none';
+        muteButtonDesktop.style.display = 'block';
+        volumeButtonDesktop.style.display = 'none';
 
         // Audio stummschalten
         audioElements.forEach(audio => {
@@ -25,11 +30,14 @@ function toggleMute() {
         });
 
         // Ändere den Rand des Mute-Buttons auf rot
-        muteButton.classList.add('active');
+        muteButtonMobile.classList.add('active');
+        muteButtonDesktop.classList.add('active');
     } else {
         // Zeige den Volume-Button und verstecke den Mute-Button
-        muteButton.style.display = 'none';
-        volumeButton.style.display = 'block';
+        muteButtonMobile.style.display = 'none';
+        volumeButtonMobile.style.display = 'block';
+        muteButtonDesktop.style.display = 'none';
+        volumeButtonDesktop.style.display = 'block';
 
         // Audio wieder einschalten
         audioElements.forEach(audio => {
@@ -37,6 +45,15 @@ function toggleMute() {
         });
 
         // Entferne den roten Rand vom Mute-Button
-        muteButton.classList.remove('active');
+        muteButtonMobile.classList.remove('active');
+        muteButtonDesktop.classList.remove('active');
     }
 }
+
+// Setze den Volume-Button standardmäßig auf sichtbar und den Mute-Button auf unsichtbar
+window.onload = () => {
+    document.getElementById('btnMuteMobile').style.display = 'none';
+    document.getElementById('btnVolumeMobile').style.display = 'block';
+    document.getElementById('btnMuteDesktop').style.display = 'none';
+    document.getElementById('btnVolumeDesktop').style.display = 'block';
+};

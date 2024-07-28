@@ -62,22 +62,22 @@
 
     <div class="btn-mobile-wrapper" id="btn-mobile-wrapper">
         <div class="btn-mobile-flex">
-            <img class="btn-mobile-jump" id="btnJump" src="img/2_character_pepe/3_jump/J-34.png" alt="" />
+            <img class="btn-mobile-jump" id="btnJump" src="img/2_character_pepe/3_jump/J-35.png" alt="" />
             <img class="btn-mobile-bottle" id="btnThrow" src="img/6_salsa_bottle/2_salsa_bottle_on_ground.png" alt="" />
         </div>
         <div class="btn-mobile-flex">
             <img class="btn-mobile" id="btnLeft" src="./img/7_statusbars/3_icons/left_arrow.png" alt="" />
             <img class="btn-mobile" id="btnRight" src="./img/7_statusbars/3_icons/right_arrow.png" alt="" />
         </div>
-        <div class="btn-mobile-wrapper" id="btn-mobile-wrapper-mute">
-            <div class="btn-mobile-flex">
-                <img class="btn-mobile-mute" id="btnMute" src="img/12_all_icons/mute.png" alt="Mute"
-                    onclick="toggleMute()" style="display: none;"/>
-                <img class="btn-mobile-volume" id="btnVolume" src="img/12_all_icons/volume.png" alt="Volume"
-                    onclick="toggleMute() "  />
-            </div>
-        </div>
     </div>
+    <!-- Mute and Volume Buttons for Mobile -->
+    <img class="btn-mobile-mute" id="btnMuteMobile" src="img/12_all_icons/mute.png" alt="Mute" onclick="toggleMute()" style="display: none;" />
+    <img class="btn-mobile-volume" id="btnVolumeMobile" src="img/12_all_icons/volume.png" alt="Volume" onclick="toggleMute()" />
+
+    <!-- Mute and Volume Buttons for Desktop -->
+    <img class="btn-desktop-mute" id="btnMuteDesktop" src="img/12_all_icons/mute.png" alt="Mute" onclick="toggleMute()" style="display: none;" />
+    <img class="btn-desktop-volume" id="btnVolumeDesktop" src="img/12_all_icons/volume.png" alt="Volume" onclick="toggleMute()" />
+
     <script src="./js/game.js"></script>
 </body>
 
