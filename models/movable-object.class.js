@@ -89,6 +89,11 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Plays the animation for the movable object.
+     * 
+     * @param {string[]} images - An array of image paths for the animation.
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -96,6 +101,11 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    /**
+     * Checks if the current movable object is colliding with another movable object.
+     * @param {MovableObject} mo - The other movable object to check collision with.
+     * @returns {boolean} - True if collision occurs, false otherwise.
+     */
     isColliding(mo) {
         return this.x + this.width - this.offset.right > mo.x + mo.offset.left && // R -> L
             this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && // T -> B
