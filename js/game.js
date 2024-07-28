@@ -4,77 +4,131 @@ let keyboard = new Keyboard();
 let gameLost = false;
 let gameWon = false;
 
+/**
+ * Starts the game.
+ */
 function startGame() {
-    gameLost = false;
-    gameWon = false;
+    resetGameFlags();
     menuSong.pause();
     ingameMusic.play();
-    document.getElementById('startScreen').style.display = 'none';
-    document.getElementById('defeatScreen').style.display = 'none';
-    document.getElementById('winScreen').style.display = 'none';
-    document.getElementById('gameScreen').style.display = 'unset';
-    document.getElementById('controlSetupButton').style.display = 'none';
-    document.getElementById('restartButton').style.display = 'none'; // Hide restart button when the game starts
+    updateGameDisplay('none', 'none', 'none', 'unset', 'none', 'none');
     initLevel1();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     console.log('My character is', world.character);
-    showMobileButtons(); // Ensure mobile buttons are visible when the game restarts
+    showMobileButtons();
 }
 
+/**
+ * Resets the game state flags.
+ */
+function resetGameFlags() {
+    gameLost = false;
+    gameWon = false;
+}
+
+/**
+ * Ends the game when the player loses.
+ */
 function endTheGameByLost() {
     if (gameLost) return;
-    bossMusic.pause();
+    pauseMusic();
     gameLost = true;
-    defeatSound.currentTime = 0;
-    defeatSound.play();
-    document.getElementById('startScreen').style.display = 'none';
-    document.getElementById('defeatScreen').style.display = 'unset';
-    document.getElementById('winScreen').style.display = 'none';
-    document.getElementById('gameScreen').style.display = 'none';
+    playSound(defeatSound);
+    updateGameDisplay('none', 'unset', 'none', 'none', 'none');
     hideMobileButtons();
     showRestartButton();
 }
 
+/**
+ * Ends the game by declaring a win.
+ */
 function endTheGameByWin() {
     if (gameWon) return;
-    bossMusic.pause();
+    pauseMusic();
     gameWon = true;
-    winSound.play();
-    document.getElementById('startScreen').style.display = 'none';
-    document.getElementById('defeatScreen').style.display = 'none';
-    document.getElementById('winScreen').style.display = 'unset';
-    document.getElementById('gameScreen').style.display = 'none';
+    playSound(winSound);
+    updateGameDisplay('none', 'none', 'unset', 'none', 'none');
     hideMobileButtons();
     showRestartButton();
 }
 
+/**
+ * Pauses all game music.
+ */
+function pauseMusic() {
+    bossMusic.pause();
+    ingameMusic.pause();
+}
+
+/**
+ * Plays a given sound from the beginning.
+ * @param {HTMLAudioElement} sound - The sound to be played.
+ */
+function playSound(sound) {
+    sound.currentTime = 0;
+    sound.play();
+}
+
+/**
+ * Updates the display property of various game elements.
+ * @param {string} startScreenDisplay - Display property for the start screen.
+ * @param {string} defeatScreenDisplay - Display property for the defeat screen.
+ * @param {string} winScreenDisplay - Display property for the win screen.
+ * @param {string} gameScreenDisplay - Display property for the game screen.
+ * @param {string} controlSetupButtonDisplay - Display property for the control setup button.
+ * @param {string} restartButtonDisplay - Display property for the restart button.
+ */
+function updateGameDisplay(startScreenDisplay, defeatScreenDisplay, winScreenDisplay, gameScreenDisplay, controlSetupButtonDisplay, restartButtonDisplay) {
+    document.getElementById('startScreen').style.display = startScreenDisplay;
+    document.getElementById('defeatScreen').style.display = defeatScreenDisplay;
+    document.getElementById('winScreen').style.display = winScreenDisplay;
+    document.getElementById('gameScreen').style.display = gameScreenDisplay;
+    document.getElementById('controlSetupButton').style.display = controlSetupButtonDisplay;
+    document.getElementById('restartButton').style.display = restartButtonDisplay;
+}
+
+/**
+ * Hides all mobile buttons.
+ */
 function hideMobileButtons() {
-    let mobileButtons = document.querySelectorAll('.btn-mobile, .btn-mobile-bottle, .btn-mobile-jump');
-    mobileButtons.forEach(button => {
-        button.style.display = 'none';
-    });
+    toggleMobileButtons('none');
 }
 
+/**
+ * Shows all mobile buttons.
+ */
 function showMobileButtons() {
+    toggleMobileButtons('block');
+}
+
+/**
+ * Toggles the display property of all mobile buttons.
+ * @param {string} displayValue - The display value to be set ('none' or 'block').
+ */
+function toggleMobileButtons(displayValue) {
     let mobileButtons = document.querySelectorAll('.btn-mobile, .btn-mobile-bottle, .btn-mobile-jump');
     mobileButtons.forEach(button => {
-        button.style.display = 'block';
+        button.style.display = displayValue;
     });
 }
 
+/**
+ * Shows the restart button.
+ */
 function showRestartButton() {
     document.getElementById('restartButton').style.display = 'block';
 }
 
+/**
+ * Displays the start screen and hides other screens.
+ */
 function startScreen() {
     menuSong.play();
-    document.getElementById('startScreen').style.display = 'unset';
-    document.getElementById('defeatScreen').style.display = 'none';
-    document.getElementById('winScreen').style.display = 'none';
-    document.getElementById('gameScreen').style.display = 'none';
+    updateGameDisplay('unset', 'none', 'none', 'none');
 }
 
+// Modal and control setup button event listeners
 let modal = document.getElementById("myModal");
 let btn = document.getElementById("controlSetupButton");
 let span = document.getElementsByClassName("close")[0];
@@ -93,7 +147,9 @@ window.onclick = function (event) {
     }
 }
 
-// Function to check if the device needs to be rotated
+/**
+ * Checks the orientation of the device and displays a message if it needs to be rotated.
+ */
 function checkOrientation() {
     let rotateMessage = document.getElementById('rotateMessage');
     if (window.innerWidth < 720 && window.innerHeight > window.innerWidth) {
@@ -103,9 +159,7 @@ function checkOrientation() {
     }
 }
 
-// Initial check
+// Initial orientation check and event listeners for orientation change
 checkOrientation();
-
-// Check on resize and orientation change
 window.addEventListener('resize', checkOrientation);
 window.addEventListener('orientationchange', checkOrientation);
