@@ -392,7 +392,7 @@ h1 {
     }
 }
 
-/* Footer Buttons Styles */
+/* General styles */
 .footer-buttons {
     display: flex;
     justify-content: center;
@@ -419,4 +419,21 @@ h1 {
 
 .footer-buttons button:focus {
     outline: none;
+}
+
+/* Mobile styles */
+@media (max-width: 1024px) {
+    .footer-buttons {
+        flex-direction: column;
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        margin: 0;
+    }
+
+    .footer-buttons button {
+        margin: 5px 0;
+        padding: 5px 10px;
+        font-size: 1rem;
+    }
 }
