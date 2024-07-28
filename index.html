@@ -7,6 +7,7 @@
     <title>El Pollo Loco</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="/img/fav_icon/fav.png">
+    <script src="./js/audio.js"></script>
     <script src="./models/drawable-object.class.js"></script>
     <script src="./models/movable-object.class.js"></script>
     <script src="./models/character.class.js "></script>
@@ -58,6 +59,7 @@
     </div>
     <button id="restartButton" style="display: none;" onclick="startGame()">Restart Game</button>
     <div id="rotateMessage" class="rotateMessage">Bitte drehen Sie Ihr Gerät</div>
+
     <div class="btn-mobile-wrapper" id="btn-mobile-wrapper">
         <div class="btn-mobile-flex">
             <img class="btn-mobile-jump" id="btnJump" src="img/2_character_pepe/3_jump/J-34.png" alt="" />
@@ -66,6 +68,14 @@
         <div class="btn-mobile-flex">
             <img class="btn-mobile" id="btnLeft" src="./img/7_statusbars/3_icons/left_arrow.png" alt="" />
             <img class="btn-mobile" id="btnRight" src="./img/7_statusbars/3_icons/right_arrow.png" alt="" />
+        </div>
+        <div class="btn-mobile-wrapper" id="btn-mobile-wrapper-mute">
+            <div class="btn-mobile-flex">
+                <img class="btn-mobile-mute" id="btnMute" src="img/12_all_icons/mute.png" alt="Mute"
+                    onclick="toggleMute()" />
+                <img class="btn-mobile-volume" id="btnVolume" src="img/12_all_icons/volume.png" alt="Volume"
+                    onclick="toggleMute()" style="display: none;" />
+            </div>
         </div>
     </div>
     <script src="./js/game.js"></script>

@@ -49,8 +49,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ];
-    walkig_sound = new Audio('audio/walk.mp3');
-    snore_sound = new Audio('audio/snore.mp3');
+   
     deadAnimationPlayed = false;
     offset = {
         left: 25,
@@ -74,20 +73,20 @@ class Character extends MovableObject {
 
     resetIdleTimer() {
         clearTimeout(this.idleTimer);
-        this.snore_sound.pause();
+        snore_sound.pause();
         this.startIdleTimer();
     }
 
     startIdleTimer() {
         this.idleTimer = setTimeout(() => {
-            this.snore_sound.play();
+            snore_sound.play();
             this.playIdleAnimation();
         }, this.idleTime);
     }
 
     playIdleAnimation() {
         this.idleAnimationInterval = setInterval(() => {
-            if (this.snore_sound.paused) {
+            if (snore_sound.paused) {
                 clearInterval(this.idleAnimationInterval);
             } else {
                 this.playAnimation(this.IMAGES_WAITING);
@@ -102,16 +101,16 @@ class Character extends MovableObject {
 
     animateMovement() {
         setInterval(() => {
-            this.walkig_sound.pause();
+            walkig_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.moveRight();
-                this.walkig_sound.play();
+                walkig_sound.play();
                 this.resetIdleTimer();
                 this.otherDirection = false;
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
-                this.walkig_sound.play();
+                walkig_sound.play();
                 this.resetIdleTimer();
                 this.otherDirection = true;
             }

@@ -36,10 +36,10 @@ class Endboss extends MovableObject {
         './img/4_enemie_boss_chicken/5_dead/G25.png',
         './img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
-    bossMusic = new Audio('audio/bossMusic.mp3');
+
     bossChickenSound = new Audio('audio/bossChicken.mp3');
-    musicPlayed = false; 
-    musicPlayedFunction = false; 
+    musicPlayed = false;
+    musicPlayedFunction = false;
 
     width = 400;
     height = 400;
@@ -82,7 +82,7 @@ class Endboss extends MovableObject {
             this.playAnimation(Endboss.IMAGES_HURT);
         } else if (this.isInAttackRange()) {
             this.playAnimation(Endboss.IMAGES_ATTACK);
-        } else if (this.isInAlertRange() && !this.alertAnimationPlayed ) {
+        } else if (this.isInAlertRange() && !this.alertAnimationPlayed) {
             this.musicPlayedFunction = true;
             this.playMusicOnce(); // Musik einmal abspielen
             world.statusBarBoss.show();
@@ -96,14 +96,15 @@ class Endboss extends MovableObject {
 
     playMusicOnce() {
         if (!this.musicPlayed) {
-            console.log('Setting musicPlayed to true'); 
-            this.musicPlayed = true;  // Setze die Flagge sofort            
-                this.bossMusic.play();
-                console.log('Boss music played'); 
-            
+            console.log('Setting musicPlayed to true');
+            this.musicPlayed = true;  // Setze die Flagge sofort
+            ingameMusic.pause();
+            bossMusic.play();
+            console.log('Boss music played');
+
         }
     }
-    
+
 
     hit() {
         const damage = 20;
@@ -133,7 +134,7 @@ class Endboss extends MovableObject {
         return this.energy <= 0;
     }
     pauseMusic() {
-        this.bossMusic.pause();        
+        this.bossMusic.pause();
     }
 
     isInAttackRange() {

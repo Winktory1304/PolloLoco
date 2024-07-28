@@ -1,14 +1,14 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let winSound = new Audio('audio/winSound.mp3');
-let defeatSound = new Audio('audio/defeatSound.mp3');
 let gameLost = false;
 let gameWon = false;
 
 function startGame() {
     gameLost = false;
     gameWon = false;
+    menuSong.pause();
+    ingameMusic.play();
     document.getElementById('startScreen').style.display = 'none';
     document.getElementById('defeatScreen').style.display = 'none';
     document.getElementById('winScreen').style.display = 'none';
@@ -24,7 +24,7 @@ function startGame() {
 
 function endTheGameByLost() {
     if (gameLost) return;
-    world.endboss.bossMusic.pause();
+    bossMusic.pause();
     gameLost = true;
     defeatSound.currentTime = 0;
     defeatSound.play();
@@ -38,7 +38,7 @@ function endTheGameByLost() {
 
 function endTheGameByWin() {
     if (gameWon) return;
-    world.endboss.bossMusic.pause();
+    bossMusic.pause();
     gameWon = true;
     winSound.play();
     document.getElementById('startScreen').style.display = 'none';
@@ -68,6 +68,7 @@ function showRestartButton() {
 }
 
 function startScreen() {
+    menuSong.play();
     document.getElementById('startScreen').style.display = 'unset';
     document.getElementById('defeatScreen').style.display = 'none';
     document.getElementById('winScreen').style.display = 'none';
