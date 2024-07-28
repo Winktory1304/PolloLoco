@@ -81,7 +81,8 @@ class Endboss extends MovableObject {
         } else if (this.isCurrentlyHurt) {
             this.playAnimation(Endboss.IMAGES_HURT);
         } else if (this.isInAttackRange()) {
-            this.playAnimation(Endboss.IMAGES_ATTACK);
+            this.playAnimation(Endboss.IMAGES_ATTACK);            
+            world.handleCharacterHitByEnemy();
         } else if (this.isInAlertRange() && !this.alertAnimationPlayed) {
             this.musicPlayedFunction = true;
             this.playMusicOnce(); // Musik einmal abspielen
