@@ -71,6 +71,7 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
                     enemy.hit(10);
+                    bottleBreakSound.play();
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
                 }
@@ -79,6 +80,7 @@ class World {
             // Prüfen der Kollision mit dem Endboss
             if (this.endboss.isColliding(throwableObject) && !this.endboss.isDead()) {
                 this.endboss.hit(throwableObject.damage);
+                bottleBreakSound.play();
                 this.statusBarBoss.setPercentages(this.endboss.energy); // Update the status bar
                 objectsToRemove.push(index);
             }

@@ -12,7 +12,7 @@ let bottleBreakSound = new Audio('audio/brokenBottle.mp3');
 function toggleMute() {
     const muteButton = document.getElementById('btnMute');
     const volumeButton = document.getElementById('btnVolume');
-    const audioElements = [bossMusic, winSound, defeatSound, walkingSound, snoreSound, ingameMusic, menuSong];
+    const audioElements = [bossMusic, winSound, defeatSound, walkingSound, snoreSound, ingameMusic, menuSong, collectCoinSound, killChickenSound, bottleBreakSound];
 
     if (muteButton.style.display === 'none') {
         // Zeige den Mute-Button und verstecke den Volume-Button
