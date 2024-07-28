@@ -425,8 +425,8 @@ h1 {
     .footer-buttons {
         flex-direction: column;
         position: fixed;
-        top: 10px;
-        left: 10px;
+        top: 5px;
+        left: 5px;
         margin: 0;
     }
 
