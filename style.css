@@ -437,3 +437,26 @@ h1 {
         font-size: 1rem;
     }
 }
+
+/* General styles */
+.back-button {
+    margin-top: 20px;
+    background-color: #52DA1A;
+    border: 0 solid #E5E7EB;
+    color: #000000;
+    font-family: 'mexican', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #45C619;
+}
+
+.back-button:focus {
+    outline: none;
+}
