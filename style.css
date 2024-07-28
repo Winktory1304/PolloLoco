@@ -1,3 +1,4 @@
+/* General styles */
 body {
     display: flex;
     flex-direction: column;
@@ -10,7 +11,6 @@ body {
     background-attachment: fixed;
     margin: 0;
     min-height: 100vh;
-    margin: 0;
     scroll-behavior: smooth;
 }
 
@@ -29,26 +29,6 @@ h1 {
     letter-spacing: 3px;
     color: #F6BF00;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen and (max-width: 720px) {
-    canvas {
-        width: 100%;
-    }
-
-    /* Hide h1 in landscape mode */
-    @media (orientation: landscape) {
-        h1 {
-            display: none;
-        }
-    }
-}
-
-@media only screen and (max-height: 480px) {
-    canvas {
-        height: 100vh;
-    }
 }
 
 .fullscreen {
@@ -114,7 +94,6 @@ h1 {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -126,22 +105,8 @@ h1 {
     border: 1px solid #888;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    -webkit-animation-name: animatetop;
-    -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s;
-}
-
-@-webkit-keyframes animatetop {
-    from {
-        top: -300px;
-        opacity: 0;
-    }
-
-    to {
-        top: 0;
-        opacity: 1;
-    }
 }
 
 @keyframes animatetop {
@@ -149,7 +114,6 @@ h1 {
         top: -300px;
         opacity: 0;
     }
-
     to {
         top: 0;
         opacity: 1;
@@ -210,11 +174,9 @@ h1 {
     text-decoration-thickness: auto;
     width: 100%;
     max-width: 460px;
-    position: relative;
     cursor: pointer;
     transform: rotate(-2deg);
     user-select: none;
-    -webkit-user-select: none;
     touch-action: manipulation;
 }
 
@@ -237,13 +199,6 @@ h1 {
     left: 2px;
 }
 
-@media (min-width: 768px) {
-    .control-setup-button {
-        padding: .75rem 3rem;
-        font-size: 1.25rem;
-    }
-}
-
 /* Rotate Message */
 .rotateMessage {
     display: none;
@@ -263,6 +218,123 @@ h1 {
     padding: 20px;
 }
 
+/* Button styles */
+.btn-mobile-wrapper {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+}
+
+.btn-mobile-flex {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-mobile-wrapper {
+    bottom: 40px;
+    position: absolute;
+}
+
+.btn-mobile, .btn-mobile-bottle, .btn-mobile-jump {
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-mobile {
+    border: solid #52DA1A;
+    padding: 10px;
+    width: 30px;
+    height: auto;
+}
+
+.btn-mobile-bottle {
+    border: solid red;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.btn-mobile-jump {
+    border: solid #52DA1A;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Mute and Volume Buttons */
+.btn-mobile-mute, .btn-mobile-volume,
+.btn-desktop-mute, .btn-desktop-volume {
+    background: rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    border: solid #52DA1A;
+}
+
+.btn-mobile-mute.active, .btn-desktop-mute.active {
+    border: solid red;
+}
+
+.btn-mobile-mute:hover, .btn-mobile-volume:hover,
+.btn-desktop-mute:hover, .btn-desktop-volume:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Restart Button */
+#restartButton {
+    display: none;
+    padding: 10px 20px;
+    background-color: #52DA1A;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    position: fixed;
+    top: 90%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+
+#restartButton:hover {
+    background-color: #45C619;
+}
+
+/* Responsive styles */
+@media (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+
+    @media (orientation: landscape) {
+        h1 {
+            display: none;
+        }
+    }
+}
+
+@media (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }
+}
+
+@media (min-width: 768px) {
+    .control-setup-button {
+        padding: .75rem 3rem;
+        font-size: 1.25rem;
+    }
+}
+
 @media (max-width: 720px) and (orientation: portrait) {
     .rotateMessage {
         display: flex;
@@ -274,24 +346,8 @@ h1 {
         display: none;
     }
 
-    .startScreen {
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative;
-        width: 100%;
-        height: 100vh;
-    }
-
-    .defeatScreen {
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        position: relative;
-        width: 100%;
-        height: 100vh;
-    }
-
+    .startScreen,
+    .defeatScreen,
     .winScreen {
         background-size: contain;
         background-position: center;
@@ -306,145 +362,32 @@ h1 {
     }
 }
 
-
 @media (max-width: 1024px) {
     .btn-mobile-wrapper {
         display: flex !important;
+    }
+
+    .btn-mobile-mute {
+        display: none;
+    }
+    
+    .btn-mobile-volume {
+        display: block;
     }
 }
 
 @media (max-width: 1024px) and (orientation: landscape) {
-
     .btn-mobile-wrapper {
         display: flex !important;
     }
 }
 
-
-.btn-mobile-wrapper {
-    display: none;
-    width: 100%;
-    flex-direction: column;
-}
-
-.btn-mobile-flex {
-    padding: 0 20px 0 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.btn-mobile-wrapper {
-    bottom: 40px;
-    position: absolute;
-}
-
-/* Gemeinsame Stile für alle mobilen Buttons */
-.btn-mobile, .btn-mobile-bottle, .btn-mobile-jump {
-    background: rgba(0, 0, 0, 0.3);
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-/* Spezifische Stile für btn-mobile */
-.btn-mobile {
-    border: solid #52DA1A;
-    padding: 10px;
-    width: 30px;
-    height: auto;
-}
-
-/* Spezifische Stile für btn-mobile-bottle */
-.btn-mobile-bottle {
-    border: solid red;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-}
-
-/* Spezifische Stile für btn-mobile-jump */
-.btn-mobile-jump {
-    border: solid #52DA1A;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-}
-
-/* Stile für die Mute- und Volume-Buttons */
-.btn-mobile-mute, .btn-mobile-volume,
-.btn-desktop-mute, .btn-desktop-volume {
-    background: rgba(0, 0, 0, 0.3);
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    position: fixed; /* Fixiert die Position der Buttons */
-    top: 20px; /* Abstand vom oberen Rand */
-    right: 20px; /* Abstand vom rechten Rand */
-    z-index: 1000; /* Stellt sicher, dass die Buttons über anderen Elementen liegen */
-    cursor: pointer;
-    border: solid #52DA1A; /* Standard grün */
-}
-
-/* Mobil spezifische Stile */
-.btn-mobile-mute, .btn-mobile-volume {
-    display: none; /* Verstecke standardmäßig */
-}
-
-/* Desktop spezifische Stile */
-.btn-desktop-mute, .btn-desktop-volume {
-    display: none; /* Verstecke standardmäßig */
-}
-
-.btn-mobile-mute.active, .btn-desktop-mute.active {
-    border: solid red; /* Roter Rand, wenn Mute-Button aktiv ist */
-}
-
-/* Optional: Hover-Effekte */
-.btn-mobile-mute:hover, .btn-mobile-volume:hover,
-.btn-desktop-mute:hover, .btn-desktop-volume:hover {
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Media Query für Mobilgeräte */
-@media (max-width: 1024px) {
-    .btn-mobile-mute {
-        display: none; /* Verstecke mobile Mute-Button standardmäßig */
-    }
-    .btn-mobile-volume {
-        display: block; /* Zeige mobile Volume-Button */
-    }
-}
-
-/* Media Query für Desktops */
 @media (min-width: 1025px) {
     .btn-desktop-mute {
-        display: none; /* Verstecke Desktop Mute-Button standardmäßig */
+        display: none;
     }
+
     .btn-desktop-volume {
-        display: block; /* Zeige Desktop Volume-Button */
+        display: block;
     }
-}
-
-
-/* CSS */
-#restartButton {
-    display: none; /* Initially hidden */
-    padding: 10px 20px;
-    background-color: #52DA1A;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    position: fixed; /* Position fixed to stay at the right edge of the screen */
-     /* Distance from the right edge */
-    top: 90%; /* Position in the middle of the screen vertically */
-    transform: translateY(-50%); /* Center the button vertically */
-    z-index: 1000; /* Ensure the button is above other elements */
-}
-
-/* Optional: Add hover effect */
-#restartButton:hover {
-    background-color: #45C619;
 }
