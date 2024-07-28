@@ -51,6 +51,9 @@ class World {
         this.checkCollisionBottleWithEnemy()
     }
 
+    /**
+     * Checks for collisions between the character and enemies in the level.
+     */
     checkCollisionWithEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && !this.character.isHurt() && !enemy.isDead()) {
@@ -63,11 +66,15 @@ class World {
         });
     }
 
+    /**
+     * Checks for collision between throwable objects and enemies or the end boss.
+     * Removes collided objects and updates the status bar accordingly.
+     */
     checkCollisionThrowableObjects() {
         let objectsToRemove = [];
         let enemiesToRemove = [];
         this.throwableObjects.forEach((throwableObject, index) => {
-            // Prüfen der Kollision mit normalen Feinden
+            //check collision with enemies
             this.level.enemies.forEach((enemy) => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
                     enemy.hit(10);
@@ -75,9 +82,8 @@ class World {
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
                 }
-            });
-    
-            // Prüfen der Kollision mit dem Endboss
+            });    
+            // check collision with endboss
             if (this.endboss.isColliding(throwableObject) && !this.endboss.isDead()) {
                 this.endboss.hit(throwableObject.damage);
                 bottleBreakSound.play();
@@ -85,12 +91,10 @@ class World {
                 objectsToRemove.push(index);
             }
         });
-
         // Entferne Wurfobjekte in umgekehrter Reihenfolge, um Index-Probleme zu vermeiden
         objectsToRemove.sort((a, b) => b - a).forEach((index) => {
             this.throwableObjects.splice(index, 1);
         });
-
         // Entferne Feinde, wenn es sich nicht um den Endboss handelt
         if (!this.endboss) {
             enemiesToRemove.forEach((enemy) => {
@@ -99,12 +103,18 @@ class World {
         }
     }
 
+
     handleEnemyCollisionFromAbove(enemy) {
         killChickenSound.play();
         enemy.hit(100);
         this.removeEnemyAtIndex(enemy);
-
     }
+
+
+    /**
+     * Checks for collision between throwable objects and enemies.
+     * Removes collided objects and enemies from the world.
+     */
     checkCollisionBottleWithEnemy() {
         let objectsToRemove = [];
         let enemiesToRemove = [];
@@ -121,36 +131,41 @@ class World {
                     }
                     objectsToRemove.push(index);
                     enemiesToRemove.push(enemy);
-
                 }
             });
         });
-
         objectsToRemove.sort((a, b) => b - a).forEach((index) => {
             this.throwableObjects.splice(index, 1);
         });
-
         enemiesToRemove.forEach((enemy) => {
             this.removeEnemyAtIndex(enemy);
         });
     }
 
+
+    /**
+     * Removes an enemy from the level's enemies array at the specified index.
+     * @param {Object} enemy - The enemy object to be removed.
+     */
     removeEnemyAtIndex(enemy) {
         let index = this.level.enemies.indexOf(enemy);
         if (index > -1) {
             setTimeout(() => {
                 this.level.enemies.splice(index, 1);
-
             }, 2000);
         }
     }
 
+
     handleCharacterHitByEnemy() {
         this.character.hit(10);
         this.statusBar.setPercentages(this.character.energy);
-
     }
 
+
+    /**
+     * Checks for collision between the character and coins in the level.
+     */
     checkCollisionWithCoins() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
@@ -159,12 +174,14 @@ class World {
         });
     }
 
+
     handleCoinCollision(index) {
         this.character.collectCoin();
         collectCoinSound.play();
         this.statusBarCoin.setPercentages(this.character.collectetCoins);
         this.level.coins.splice(index, 1);
     }
+
 
     checkCollisionWithBottles() {
         this.level.bottles.forEach((bottle, index) => {
@@ -173,6 +190,7 @@ class World {
             }
         });
     }
+
 
     handleBottleCollision(index) {
         this.character.collectBottle();
@@ -195,20 +213,12 @@ class World {
         }
     }
 
+
     lastThrow() {
         let timepassed = (new Date().getTime() - this.timeOfThrow) / 1000;
         return timepassed;
     }
-
-    // -------------------------------------------------------------------------
-
-    // checkFirstContactBoss() {
-    //     if (this.firstContactBoss && !this.firstContactBosshandle) {
-    //         //play sound
-    //         console.log('Rohhhharrr');
-    //         this.firstContactBosshandle = true;           
-    //     }
-    // }
+    
 
     checkEndTheGame() {
         if (this.character.energy <= 0) {
