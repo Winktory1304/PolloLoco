@@ -48,14 +48,14 @@ class SmallChicken extends MovableObject {
     }
 
     randomJump() {
-        if (!this.isDead() && Math.random() < 0.1) { // 10% Wahrscheinlichkeit zu springen
+        if (!this.isDead() && Math.random() < 0.3) { // 10% Wahrscheinlichkeit zu springen
             this.jump();
         }
     }
 
     jump() {
         if (!this.isAboveGround()) {
-            this.speedY = 15; // Setze die Sprunghöhe
+            this.speedY = 30; // Setze die Sprunghöhe
         }
     }
 
