@@ -50,10 +50,10 @@ class Endboss extends MovableObject {
     speed = 15;
     x = 1750;
     offset = {
-        left: 60,
-        right: 60,
+        left: 15,
+        right: 15,
         top: 80,
-        bottom: 20
+        bottom: 30
     };
 
     constructor() {
