@@ -49,7 +49,7 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ];
-   
+
     deadAnimationPlayed = false;
     offset = {
         left: 25,
@@ -104,26 +104,47 @@ class Character extends MovableObject {
      */
     animateMovement() {
         setInterval(() => {
-            walkingSound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-                this.moveRight();
-                walkingSound.play();
-                this.resetIdleTimer();
-                this.otherDirection = false;
-            }
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                walkingSound.play();
-                this.resetIdleTimer();
-                this.otherDirection = true;
-            }
-            if (this.world.keyboard.SPACE && !this.isAboveGround()) {
-                this.jump();
-                this.resetIdleTimer();
-            }
-            this.world.camera_x = -this.x + 100;
+            this.handleMovement();
+            this.updateCamera();
         }, 1000 / 60);
     }
+
+    handleMovement() {
+        walkingSound.pause();
+        if (this.isMovingRight()) {
+            this.moveRight();
+            walkingSound.play();
+            this.resetIdleTimer();
+            this.otherDirection = false;
+        }
+        if (this.isMovingLeft()) {
+            this.moveLeft();
+            walkingSound.play();
+            this.resetIdleTimer();
+            this.otherDirection = true;
+        }
+        if (this.isJumping()) {
+            this.jump();
+            this.resetIdleTimer();
+        }
+    }
+
+    isMovingRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+    }
+
+    isMovingLeft() {
+        return this.world.keyboard.LEFT && this.x > 0;
+    }
+
+    isJumping() {
+        return this.world.keyboard.SPACE && !this.isAboveGround();
+    }
+
+    updateCamera() {
+        this.world.camera_x = -this.x + 100;
+    }
+
 
     /**
      * Animates the actions of the character.
@@ -151,7 +172,7 @@ class Character extends MovableObject {
      * Handles the death of the character.
      */
     handleDeath() {
-        this.playAnimation(this.IMAGES_DEAD);     
+        this.playAnimation(this.IMAGES_DEAD);
         world.clearAllIntervals();
         endTheGameByLost();
         this.deadAnimationPlayed = true;
@@ -162,7 +183,7 @@ class Character extends MovableObject {
      */
     checkIdle() {
         this.idleTimer = null;
-        this.idleTime = 15000; 
+        this.idleTime = 3000;
 
         this.startIdleTimer();
     }
