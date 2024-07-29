@@ -143,7 +143,7 @@ class Endboss extends MovableObject {
     }
 
     isInAlertRange() {
-        return this.checkDistance() < 300;
+        return this.checkDistance() < 500;
     }
 
     handleAlert() {

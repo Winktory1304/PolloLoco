@@ -23,7 +23,7 @@ class Chicken extends MovableObject {
         this.x = 400 + Math.random() * 2000; // Spawnen zufällig in einer Range von 400px bis 2400px
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-        this.speed = 0.15 + Math.random() * 0.25;
+        this.speed = 0.35 + Math.random() * 0.8;
         this.animate();
     }
 
