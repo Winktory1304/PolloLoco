@@ -19,26 +19,35 @@ class SmallChicken extends MovableObject {
 
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
-        this.x = 400 + Math.random() * 2000; // Spawnen zufällig in einer range von 200px bis 700px
+        this.x = 400 + Math.random() * 2000;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.15 + Math.random() * 0.25;
-        this.applyGravityForSmallChicken(); // Anwenden der Schwerkraft für SmallChicken
+        this.applyGravityForSmallChicken();
         this.animate();
     }
 
+    /**
+     * Starts the animation intervals for the small chicken.
+     */
     animate() {
         this.setStoppableAnimationInterval(this.moveAnimationSmallChicken.bind(this), 1000 / 60);
         this.setStoppableAnimationInterval(this.imagesAnimationSmallChicken.bind(this), 200);
-        this.setStoppableAnimationInterval(this.randomJump.bind(this), 1000); // Füge diese Zeile hinzu
+        this.setStoppableAnimationInterval(this.randomJump.bind(this), 1000);
     }
 
+    /**
+     * Handles the movement animation for the small chicken.
+     */
     moveAnimationSmallChicken() {
         if (!this.isDead()) {
             this.moveLeft();
         }
     }
 
+    /**
+     * Handles the image animation for the small chicken.
+     */
     imagesAnimationSmallChicken() {
         if (!this.isDead()) {
             this.playAnimation(this.IMAGES_WALKING);
@@ -47,30 +56,43 @@ class SmallChicken extends MovableObject {
         }
     }
 
+    /**
+     * Makes the small chicken jump randomly.
+     */
     randomJump() {
-        if (!this.isDead() && Math.random() < 0.3) { // 10% Wahrscheinlichkeit zu springen
+        if (!this.isDead() && Math.random() < 0.3) {
             this.jump();
         }
     }
 
+    /**
+     * Makes the small chicken jump by setting its vertical speed.
+     */
     jump() {
         if (!this.isAboveGround()) {
-            this.speedY = 30; // Setze die Sprunghöhe
+            this.speedY = 15 + Math.random() * 15;
         }
     }
 
+    /**
+     * Applies gravity to the small chicken, making it fall to the ground.
+     */
     applyGravityForSmallChicken() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             } else {
-                this.y = 375; // Stellt sicher, dass das Objekt wieder auf dem Boden landet
-                this.speedY = 0; // Wenn das Objekt den Boden berührt, bleibt es stehen
+                this.y = 375;
+                this.speedY = 0;
             }
         }, 1000 / 25);
     }
 
+    /**
+     * Checks if the small chicken is above the ground.
+     * @returns {boolean} True if the small chicken is above the ground, false otherwise.
+     */
     isAboveGround() {
         return this.y < 375;
     }
