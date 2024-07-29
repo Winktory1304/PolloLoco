@@ -155,7 +155,7 @@ h1 {
 }
 
 /* Control Button */
-.control-setup-button {
+.control-setup-button {    
     margin-top: 48px;
     background-color: #52DA1A;
     border: 0 solid #E5E7EB;
@@ -197,6 +197,13 @@ h1 {
 .control-setup-button:hover:after {
     bottom: 2px;
     left: 2px;
+}
+
+/* Media Query to hide the button in landscape mode */
+@media screen and (orientation: landscape) {
+    .control-setup-button {
+        display: none !important;
+    }
 }
 
 /* Rotate Message */

@@ -155,10 +155,13 @@ window.onclick = function (event) {
  */
 function checkOrientation() {
     let rotateMessage = document.getElementById('rotateMessage');
+    let controlSetupButton = document.getElementById('controlSetupButton');
     if (window.innerWidth < 720 && window.innerHeight > window.innerWidth) {
         rotateMessage.style.display = 'flex';
+        controlSetupButton.style.display = 'none';
     } else {
         rotateMessage.style.display = 'none';
+        controlSetupButton.style.display = 'block';
     }
 }
 
