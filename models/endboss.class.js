@@ -97,11 +97,11 @@ class Endboss extends MovableObject {
 
     playMusicOnce() {
         if (!this.musicPlayed) {
-            console.log('Setting musicPlayed to true');
+           
             this.musicPlayed = true;  // Setze die Flagge sofort
             ingameMusic.pause();
             bossMusic.play();
-            console.log('Boss music played');
+            
 
         }
     }
@@ -115,7 +115,7 @@ class Endboss extends MovableObject {
         }
         this.isCurrentlyHurt = true;
         setTimeout(() => this.isCurrentlyHurt = false, 1000); // Hurt status lasts for 1 second
-        console.log(`Endboss hit! Current energy: ${this.energy}`);
+        
     }
 
     isHurt() {

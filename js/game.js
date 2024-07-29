@@ -11,11 +11,11 @@ function startGame() {
     resetGameFlags();
     menuSong.pause();
     ingameMusic.play();
-    updateGameDisplay('none', 'none', 'none', 'unset', 'none', 'none');
+    updateGameDisplay('none', 'none', 'none', 'unset', 'none', 'none', 'none');
     initLevel1();
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    console.log('My character is', world.character);
+    
     showMobileButtons();
 }
 
@@ -35,9 +35,8 @@ function endTheGameByLost() {
     pauseMusic();
     gameLost = true;
     playSound(defeatSound);
-    updateGameDisplay('none', 'unset', 'none', 'none', 'none');
+    updateGameDisplay('none', 'unset', 'none', 'none', 'none', 'block', 'flex');
     hideMobileButtons();
-    showRestartButton();
 }
 
 /**
@@ -48,9 +47,8 @@ function endTheGameByWin() {
     pauseMusic();
     gameWon = true;
     playSound(winSound);
-    updateGameDisplay('none', 'none', 'unset', 'none', 'none');
+    updateGameDisplay('none', 'none', 'unset', 'none', 'none', 'block', 'flex');
     hideMobileButtons();
-    showRestartButton();
 }
 
 /**
@@ -78,14 +76,16 @@ function playSound(sound) {
  * @param {string} gameScreenDisplay - Display property for the game screen.
  * @param {string} controlSetupButtonDisplay - Display property for the control setup button.
  * @param {string} restartButtonDisplay - Display property for the restart button.
+ * @param {string} footerButtonsDisplay - Display property for the footer buttons.
  */
-function updateGameDisplay(startScreenDisplay, defeatScreenDisplay, winScreenDisplay, gameScreenDisplay, controlSetupButtonDisplay, restartButtonDisplay) {
+function updateGameDisplay(startScreenDisplay, defeatScreenDisplay, winScreenDisplay, gameScreenDisplay, controlSetupButtonDisplay, restartButtonDisplay, footerButtonsDisplay) {
     document.getElementById('startScreen').style.display = startScreenDisplay;
     document.getElementById('defeatScreen').style.display = defeatScreenDisplay;
     document.getElementById('winScreen').style.display = winScreenDisplay;
     document.getElementById('gameScreen').style.display = gameScreenDisplay;
     document.getElementById('controlSetupButton').style.display = controlSetupButtonDisplay;
     document.getElementById('restartButton').style.display = restartButtonDisplay;
+    document.querySelector('.footer-buttons').style.display = footerButtonsDisplay;
 }
 
 /**
@@ -125,7 +125,7 @@ function showRestartButton() {
  */
 function startScreen() {
     menuSong.play();
-    updateGameDisplay('unset', 'none', 'none', 'none');
+    updateGameDisplay('unset', 'none', 'none', 'none', 'block', 'none', 'flex');
 }
 
 // Modal and control setup button event listeners
