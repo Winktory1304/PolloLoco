@@ -9,7 +9,7 @@ let gameWon = false;
  */
 function startGame() {
     resetGameFlags();
-    // menuSong.pause();
+    menuSong.pause();
     ingameMusic.play();
     updateGameDisplay('none', 'none', 'none', 'unset', 'none', 'none', 'none');
     initLevel1();
@@ -123,6 +123,9 @@ function showRestartButton() {
 /**
  * Displays the start screen and hides other screens.
  */
+function startScreenFirstTime() {    
+    updateGameDisplay('unset', 'none', 'none', 'none', 'block', 'none', 'flex');
+}
 function startScreen() {
     menuSong.play();
     updateGameDisplay('unset', 'none', 'none', 'none', 'block', 'none', 'flex');
