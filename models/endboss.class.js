@@ -63,6 +63,9 @@ class Endboss extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Initializes all images for the end boss by loading them into memory.
+     */
     initImages() {
         this.loadImages(Endboss.IMAGES_WALKING);
         this.loadImages(Endboss.IMAGES_ALERT);
@@ -71,42 +74,85 @@ class Endboss extends MovableObject {
         this.loadImages(Endboss.IMAGES_DEAD);
     }
 
+    /**
+     * Starts the animation interval for the end boss.
+     */
     animate() {
         setInterval(() => this.handleAnimation(), 150);
     }
 
+    /**
+     * Handles the animation logic for the end boss.
+     */
     handleAnimation() {
         if (this.isDead()) {
             this.handleDeath();
         } else if (this.isCurrentlyHurt) {
-            this.playAnimation(Endboss.IMAGES_HURT);
+            this.handleHurt();
         } else if (this.isInAttackRange()) {
-            this.playAnimation(Endboss.IMAGES_ATTACK);            
-            world.handleCharacterHitByEnemy();
+            this.handleAttack();
         } else if (this.isInAlertRange() && !this.alertAnimationPlayed) {
-            this.musicPlayedFunction = true;
-            this.playMusicOnce(); // Musik einmal abspielen
-            world.statusBarBoss.show();
-            this.handleAlert();
+            this.handleAlertRange();
         } else if (this.alertAnimationPlayed) {
-            this.walkAndMoveLeft();
+            this.handleAlertAnimationPlayed();
         } else {
-            this.showSpawnImage();
+            this.handleDefault();
         }
     }
 
+    /**
+     * Handles the animation when the end boss is hurt.
+     */
+    handleHurt() {
+        this.playAnimation(Endboss.IMAGES_HURT);
+    }
+
+    /**
+     * Handles the animation and logic when the end boss attacks.
+     */
+    handleAttack() {
+        this.playAnimation(Endboss.IMAGES_ATTACK);
+        world.handleCharacterHitByEnemy();
+    }
+
+    /**
+     * Handles the alert state of the end boss.
+     */
+    handleAlertRange() {
+        this.musicPlayedFunction = true;
+        this.playMusicOnce(); // Musik einmal abspielen
+        world.statusBarBoss.show();
+        this.handleAlert();
+    }
+
+    /**
+     * Handles the animation when the alert animation has been played.
+     */
+    handleAlertAnimationPlayed() {
+        this.walkAndMoveLeft();
+    }
+
+    /**
+     * Handles the default state of the end boss.
+     */
+    handleDefault() {
+        this.showSpawnImage();
+    }
+
+    /**
+     * Plays the boss music once when the end boss is alerted.
+     */
     playMusicOnce() {
         if (!this.musicPlayed) {
-           
             this.musicPlayed = true;  // Setze die Flagge sofort
             ingameMusic.pause();
             bossMusic.play();
-            
-
         }
     }
 
-
+    /**
+     * Inflicts damage on the end boss and updates its state.
+     */
     hit() {
         const damage = 20;
         this.energy -= damage;
@@ -114,38 +160,64 @@ class Endboss extends MovableObject {
             this.energy = 0;
         }
         this.isCurrentlyHurt = true;
-        setTimeout(() => this.isCurrentlyHurt = false, 1000); // Hurt status lasts for 1 second
-        
+        setTimeout(() => this.isCurrentlyHurt = false, 1000);
     }
 
+    /**
+     * Checks if the end boss is hurt.
+     * @returns {boolean} True if the end boss is hurt, false otherwise.
+     */
     isHurt() {
         return this.energy > 0 && this.energy < 80;
     }
 
+    /**
+     * Handles the death animation and logic for the end boss.
+     */
     handleDeath() {
         this.playAnimation(Endboss.IMAGES_DEAD);
         this.pauseMusic();
         setTimeout(() => this.showImage(Endboss.IMAGES_DEAD[2]), Endboss.IMAGES_DEAD.length * 150);
         setTimeout(() => {
-            world.clearAllIntervals(); // Call the clearAllIntervals method of the world instance
+            world.clearAllIntervals();
             endTheGameByWin();
         }, Endboss.IMAGES_DEAD.length * 200);
     }
+
+    /**
+     * Checks if the end boss is dead.
+     * @returns {boolean} True if the end boss is dead, false otherwise.
+     */
     isDead() {
         return this.energy <= 0;
     }
+
+    /**
+     * Pauses the boss music.
+     */
     pauseMusic() {
         bossMusic.pause();
     }
 
+    /**
+     * Checks if the end boss is in attack range.
+     * @returns {boolean} True if the end boss is in attack range, false otherwise.
+     */
     isInAttackRange() {
         return this.checkDistance() < 50;
     }
 
+    /**
+     * Checks if the end boss is in alert range.
+     * @returns {boolean} True if the end boss is in alert range, false otherwise.
+     */
     isInAlertRange() {
         return this.checkDistance() < 500;
     }
 
+    /**
+     * Handles the alert animation and logic for the end boss.
+     */
     handleAlert() {
         this.playAnimation(Endboss.IMAGES_ALERT);
         setTimeout(() => {
@@ -153,21 +225,35 @@ class Endboss extends MovableObject {
         }, Endboss.IMAGES_ALERT.length * 150);
     }
 
+    /**
+     * Handles the walking animation and movement to the left for the end boss.
+     */
     walkAndMoveLeft() {
         this.playAnimation(Endboss.IMAGES_WALKING);
         this.moveLeft();
     }
 
+    /**
+     * Shows the spawn image of the end boss.
+     */
     showSpawnImage() {
         if (this.checkDistance() > 200) {
             this.showImage(Endboss.IMAGE_SPAWN);
         }
     }
 
+    /**
+     * Checks the distance between the end boss and the player character.
+     * @returns {number} The distance between the end boss and the player character.
+     */
     checkDistance() {
         return this.x - world.character.x;
     }
 
+    /**
+     * Shows a specific image for the end boss.
+     * @param {string} image - The path to the image to be shown.
+     */
     showImage(image) {
         this.img = this.imageCache[image];
     }
