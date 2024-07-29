@@ -9,7 +9,7 @@ let gameWon = false;
  */
 function startGame() {
     resetGameFlags();
-    menuSong.pause();
+    // menuSong.pause();
     ingameMusic.play();
     updateGameDisplay('none', 'none', 'none', 'unset', 'none', 'none', 'none');
     initLevel1();
