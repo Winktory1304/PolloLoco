@@ -30,24 +30,59 @@ class ThrowableObject extends MovableObject {
         this.throw(throwDirection);
     }
 
+    /**
+     * Initiates the throwing of the object in the specified direction.
+     * @param {boolean} throwDirection - The direction in which to throw the object.
+     */
     throw(throwDirection) {
+        this.initializeThrow();
+        const intervalId = setInterval(() => {
+            this.updatePosition(throwDirection);
+            this.handleAnimationDuringThrow(intervalId);
+        }, 50);
+    }
+
+    /**
+     * Initializes the throw by setting the vertical speed and applying gravity.
+     */
+    initializeThrow() {
         this.speedY = 25;
         this.applyGravity();
-        const intervalId = setInterval(() => {            
-            if (!throwDirection) {
-                this.x += 10;
-            } else {
-                this.x -= 10;
-            }
-            if (this.isAboveGround() && !this.hit) {
-                this.playAnimation(this.IMAGES_ROTATE);
-            } else {
-                this.playAnimation(this.IMAGES_SPLASH);
-                setTimeout(() => {
-                    this.playAnimation(this.IMAGES_EMPTY);
-                }, 100);
-                clearInterval(intervalId);                
-            }
-        }, 50);
+    }
+
+    /**
+     * Updates the position of the object based on the throw direction.
+     * @param {boolean} throwDirection - The direction in which to throw the object.
+     */
+    updatePosition(throwDirection) {
+        if (!throwDirection) {
+            this.x += 10;
+        } else {
+            this.x -= 10;
+        }
+    }
+
+    /**
+     * Handles the animation of the object during the throw.
+     * @param {number} intervalId - The ID of the interval controlling the animation.
+     */
+    handleAnimationDuringThrow(intervalId) {
+        if (this.isAboveGround() && !this.hit) {
+            this.playAnimation(this.IMAGES_ROTATE);
+        } else {
+            this.playSplashAnimation(intervalId);
+        }
+    }
+
+    /**
+     * Plays the splash animation and stops the interval controlling the throw animation.
+     * @param {number} intervalId - The ID of the interval controlling the animation.
+     */
+    playSplashAnimation(intervalId) {
+        this.playAnimation(this.IMAGES_SPLASH);
+        setTimeout(() => {
+            this.playAnimation(this.IMAGES_EMPTY);
+        }, 100);
+        clearInterval(intervalId);
     }
 }

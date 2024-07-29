@@ -20,12 +20,20 @@ class StatusBarBoss extends DrawableObject {
         this.visible = false;  // Initial visibility set to false
     }
 
+    /**
+     * Sets the percentage of the boss's status bar and updates the displayed image accordingly.
+     * @param {number} percentage - The new percentage value to be set.
+     */
     setPercentages(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
+    /**
+     * Resolves the image index based on the current percentage.
+     * @returns {number} The index of the image to be displayed.
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;
@@ -42,14 +50,24 @@ class StatusBarBoss extends DrawableObject {
         }
     }
 
+    /**
+     * Makes the status bar visible.
+     */
     show() {
         this.visible = true;
     }
 
+    /**
+     * Hides the status bar.
+     */
     hide() {
         this.visible = false;
     }
 
+    /**
+     * Draws the status bar if it is visible.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     draw(ctx) {
         if (this.visible) {
             super.draw(ctx);
