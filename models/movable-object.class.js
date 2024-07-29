@@ -35,6 +35,19 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    // applyGravity() {
+    //     setInterval(() => {
+    //         if (this.isAboveGround() || this.speedY > 0) {
+    //             this.y -= this.speedY;
+    //             this.speedY -= this.acceleration;
+    //         } else {
+    //             this.y = 375; // Ensure the object lands on the ground (for SmallChicken)
+    //             this.speedY = 0; // Reset speedY when object is on the ground
+    //         }
+    //     }, 1000 / 25);
+    // }
+
+
     hit(damage) {
         this.energy -= damage;
         if (this.energy < 0) {
@@ -81,11 +94,21 @@ class MovableObject extends DrawableObject {
         // Implementiere diese Methode falls benötigt
     }
 
+    // isAboveGround() {
+    //     if (this instanceof ThrowableObject) { // Throwable objects should always fall
+    //         return this.y < 350;
+    //     } else {
+    //         return this.y < 130;
+    //     }
+    // }
+
     isAboveGround() {
         if (this instanceof ThrowableObject) { // Throwable objects should always fall
             return this.y < 350;
-        } else {
+        } else if (this instanceof SmallChicken) {
             return this.y < 130;
+        } else {
+            return this.y < 140; // Specific y-position for Character
         }
     }
 

@@ -17,19 +17,20 @@ class SmallChicken extends MovableObject {
         bottom: 0
     };
 
-
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
-        this.x = 400 + Math.random() * 2000;; //spawnen zufällig in einer range von 200px bis 700px
+        this.x = 400 + Math.random() * 2000; // Spawnen zufällig in einer range von 200px bis 700px
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.15 + Math.random() * 0.25;
+        this.applyGravityForSmallChicken(); // Anwenden der Schwerkraft für SmallChicken
         this.animate();
     }
 
     animate() {
         this.setStoppableAnimationInterval(this.moveAnimationSmallChicken.bind(this), 1000 / 60);
         this.setStoppableAnimationInterval(this.imagesAnimationSmallChicken.bind(this), 200);
+        this.setStoppableAnimationInterval(this.randomJump.bind(this), 1000); // Füge diese Zeile hinzu
     }
 
     moveAnimationSmallChicken() {
@@ -37,7 +38,6 @@ class SmallChicken extends MovableObject {
             this.moveLeft();
         }
     }
-
 
     imagesAnimationSmallChicken() {
         if (!this.isDead()) {
@@ -47,5 +47,31 @@ class SmallChicken extends MovableObject {
         }
     }
 
+    randomJump() {
+        if (!this.isDead() && Math.random() < 0.1) { // 10% Wahrscheinlichkeit zu springen
+            this.jump();
+        }
+    }
 
+    jump() {
+        if (!this.isAboveGround()) {
+            this.speedY = 15; // Setze die Sprunghöhe
+        }
+    }
+
+    applyGravityForSmallChicken() {
+        setInterval(() => {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            } else {
+                this.y = 375; // Stellt sicher, dass das Objekt wieder auf dem Boden landet
+                this.speedY = 0; // Wenn das Objekt den Boden berührt, bleibt es stehen
+            }
+        }, 1000 / 25);
+    }
+
+    isAboveGround() {
+        return this.y < 375;
+    }
 }
