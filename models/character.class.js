@@ -71,12 +71,18 @@ class Character extends MovableObject {
         this.deadAnimationPlayed = false;
     }
 
+    /**
+     * Resets the idle timer and pauses the snore sound.
+     */
     resetIdleTimer() {
         clearTimeout(this.idleTimer);
         snoreSound.pause();
         this.startIdleTimer();
     }
 
+    /**
+     * Starts the idle timer which triggers the idle animation after a specified time.
+     */
     startIdleTimer() {
         this.idleTimer = setTimeout(() => {
             snoreSound.play();
@@ -84,6 +90,9 @@ class Character extends MovableObject {
         }, this.idleTime);
     }
 
+    /**
+     * Plays the idle animation for the character.
+     */
     playIdleAnimation() {
         this.idleAnimationInterval = setInterval(() => {
             if (snoreSound.paused) {
@@ -94,6 +103,9 @@ class Character extends MovableObject {
         }, 10000 / 60); // Adjust the interval time as needed
     }
 
+    /**
+     * Starts the animation intervals for the character.
+     */
     animate() {
         this.animateMovement();
         this.animateActions();
@@ -109,6 +121,9 @@ class Character extends MovableObject {
         }, 1000 / 60);
     }
 
+    /**
+     * Handles the character's movement based on user input.
+     */
     handleMovement() {
         walkingSound.pause();
         if (this.isMovingRight()) {
@@ -129,55 +144,88 @@ class Character extends MovableObject {
         }
     }
 
+    /**
+     * Checks if the character is moving to the right.
+     * @returns {boolean} True if the character is moving right, false otherwise.
+     */
     isMovingRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
 
+    /**
+     * Checks if the character is moving to the left.
+     * @returns {boolean} True if the character is moving left, false otherwise.
+     */
     isMovingLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
     }
 
+    /**
+     * Checks if the character is jumping.
+     * @returns {boolean} True if the character is jumping, false otherwise.
+     */
     isJumping() {
         return this.world.keyboard.SPACE && !this.isAboveGround();
     }
 
+    /**
+     * Updates the camera position based on the character's position.
+     */
     updateCamera() {
         this.world.camera_x = -this.x + 100;
     }
 
-
     /**
      * Animates the actions of the character.
-     * This method is responsible for handling the character's animations based on its current state.
-     * It uses setInterval to repeatedly check the character's state and play the appropriate animation.
      */
     animateActions() {
         setInterval(() => {
             if (this.isDead() && !this.deadAnimationPlayed) {
-                this.handleDeath();
+                this.handleDeathAnimation();
             } else if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-                this.resetIdleTimer();
+                this.handleHurtAnimation();
             } else if (this.isAboveGround()) {
-                this.playAnimation(this.IMAGES_JUMPING);
+                this.handleJumpingAnimation();
             } else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_WALKING);
-                }
+                this.handleWalkingAnimation();
             }
         }, 50);
     }
-
+    
     /**
-     * Handles the death of the character.
+     * Handles the death animation of the character.
      */
-    handleDeath() {
+    handleDeathAnimation() {
         this.playAnimation(this.IMAGES_DEAD);
         world.clearAllIntervals();
         endTheGameByLost();
         this.deadAnimationPlayed = true;
     }
-
+    
+    /**
+     * Handles the hurt animation of the character.
+     */
+    handleHurtAnimation() {
+        this.playAnimation(this.IMAGES_HURT);
+        this.resetIdleTimer();
+    }
+    
+    /**
+     * Handles the jumping animation of the character.
+     */
+    handleJumpingAnimation() {
+        this.playAnimation(this.IMAGES_JUMPING);
+    }
+    
+    /**
+     * Handles the walking animation of the character.
+     */
+    handleWalkingAnimation() {
+        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            this.playAnimation(this.IMAGES_WALKING);
+        }
+    }
+    
     /**
      * Checks if the character is idle and starts the idle timer.
      */
