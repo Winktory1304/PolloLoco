@@ -20,24 +20,33 @@ class Chicken extends MovableObject {
 
     constructor() {
         super().loadImage('img/3_enemies_chicken/chicken_normal/1_walk/1_w.png');
-        this.x = 400 + Math.random() * 2000; // Spawnen zufällig in einer Range von 400px bis 2400px
+        this.x = 400 + Math.random() * 2000;
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
         this.speed = 0.35 + Math.random() * 0.8;
         this.animate();
     }
 
+    /**
+     * Starts the animation intervals for the chicken.
+     */
     animate() {
         this.setStoppableAnimationInterval(this.moveAnimationChicken.bind(this), 1000 / 60);
         this.setStoppableAnimationInterval(this.imagesAnimationChicken.bind(this), 200);
     }
 
+    /**
+     * Handles the movement animation for the chicken.
+     */
     moveAnimationChicken() {
         if (!this.isDead()) {
             this.moveLeft();
         }
     }
 
+    /**
+     * Handles the image animation for the chicken.
+     */
     imagesAnimationChicken() {
         if (!this.isDead()) {
             this.playAnimation(this.IMAGES_WALKING);
