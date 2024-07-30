@@ -56,10 +56,9 @@ class Keyboard {
             element.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 this[action] = true;
-            });
+            }, { passive: true }); // Use passive option for better performance
 
             element.addEventListener('touchend', (e) => {
-                e.preventDefault();
                 this[action] = false;
             });
         }
