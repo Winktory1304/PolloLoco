@@ -188,6 +188,7 @@ class Character extends MovableObject {
                 this.handleJumpingAnimation();
             } else {
                 this.handleWalkingAnimation();
+                this.isJumpingAnimationPlaying = false;  // Setze Zustand zurück, wenn der Charakter den Boden berührt
             }
         }, 50);
     }
@@ -214,7 +215,10 @@ class Character extends MovableObject {
      * Handles the jumping animation of the character.
      */
     handleJumpingAnimation() {
-        this.playAnimation(this.IMAGES_JUMPING);
+        if (!this.isJumpingAnimationPlaying) {
+            this.playAnimation(this.IMAGES_JUMPING);
+            this.isJumpingAnimationPlaying = true;  // Setze Zustand, wenn Sprunganimation abgespielt wird
+        }
     }
     
     /**
