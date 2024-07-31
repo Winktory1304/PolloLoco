@@ -72,31 +72,99 @@ class World {
     }
 
     /**
-     * Checks for collision between throwable objects and enemies or the end boss.
-     * Removes collided objects and updates the status bar accordingly.
-     */
+  * Checks for collision between throwable objects and enemies or the end boss.
+  * Removes collided objects and updates the status bar accordingly.
+  */
     checkCollisionThrowableObjects() {
         let objectsToRemove = [];
         let enemiesToRemove = [];
+
         this.throwableObjects.forEach((throwableObject, index) => {
-            this.level.enemies.forEach((enemy) => {
-                if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
-                    this.handleCollision(enemy, objectsToRemove, index, enemiesToRemove);
-                }
-            });
-            if (this.endboss.isColliding(throwableObject) && !this.endboss.isDead()) {
-                this.handleDamageToBoss(throwableObject, objectsToRemove, index);
+            this.checkCollisionsWithEnemies(throwableObject, index, objectsToRemove, enemiesToRemove);
+            this.checkCollisionWithEndboss(throwableObject, index, objectsToRemove);
+        });
+
+        this.removeObjectsFromMap(objectsToRemove);
+        this.removeEnemiesFromMap(enemiesToRemove);
+    }
+
+    /**
+     * Checks for collisions between a throwable object and enemies.
+     * @param {Object} throwableObject - The throwable object to check collisions for.
+     * @param {number} index - The index of the throwable object in the array.
+     * @param {Array} objectsToRemove - The list of objects to remove.
+     * @param {Array} enemiesToRemove - The list of enemies to remove.
+     */
+    checkCollisionsWithEnemies(throwableObject, index, objectsToRemove, enemiesToRemove) {
+        this.level.enemies.forEach((enemy) => {
+            if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
+                this.handleCollisionWithEnemy(enemy, objectsToRemove, index, enemiesToRemove);
             }
         });
+    }
+
+    /**
+     * Checks for collision between a throwable object and the end boss.
+     * @param {Object} throwableObject - The throwable object to check collisions for.
+     * @param {number} index - The index of the throwable object in the array.
+     * @param {Array} objectsToRemove - The list of objects to remove.
+     */
+    checkCollisionWithEndboss(throwableObject, index, objectsToRemove) {
+        if (this.endboss.isColliding(throwableObject) && !this.endboss.isDead()) {
+            this.handleCollisionWithEndboss(throwableObject, objectsToRemove, index);
+        }
+    }
+
+    /**
+     * Handles collision between a throwable object and an enemy.
+     * @param {Object} enemy - The enemy object that was hit.
+     * @param {Array} objectsToRemove - The list of objects to remove.
+     * @param {number} index - The index of the throwable object in the array.
+     * @param {Array} enemiesToRemove - The list of enemies to remove.
+     */
+    handleCollisionWithEnemy(enemy, objectsToRemove, index, enemiesToRemove) {
+        enemy.hit(10);
+        bottleBreakSound.play();
+        objectsToRemove.push(index);
+        enemiesToRemove.push(enemy);
+    }
+
+    /**
+     * Handles collision between a throwable object and the end boss.
+     * @param {Object} throwableObject - The throwable object that hit the end boss.
+     * @param {Array} objectsToRemove - The list of objects to remove.
+     * @param {number} index - The index of the throwable object in the array.
+     */
+    handleCollisionWithEndboss(throwableObject, objectsToRemove, index) {
+        this.endboss.hit(throwableObject.damage);
+        bottleBreakSound.play();
+        this.statusBarBoss.setPercentages(this.endboss.energy); // Update the status bar
+        objectsToRemove.push(index);
+    }
+
+    /**
+     * Removes objects from the map based on their indices.
+     * @param {Array} objectsToRemove - The list of objects to remove.
+     */
+    removeObjectsFromMap(objectsToRemove) {
         objectsToRemove.sort((a, b) => b - a).forEach((index) => {
             this.throwableObjects.splice(index, 1);
         });
+    }
+
+    /**
+     * Removes enemies from the map if the end boss is not present.
+     * @param {Array} enemiesToRemove - The list of enemies to remove.
+     */
+    removeEnemiesFromMap(enemiesToRemove) {
         if (!this.endboss) {
             enemiesToRemove.forEach((enemy) => {
                 this.removeEnemyAtIndex(enemy);
             });
         }
     }
+
+
 
     /**
      * Handles damage to the boss when hit by a throwable object.
