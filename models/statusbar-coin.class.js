@@ -6,8 +6,7 @@ class StatusBarCoin extends DrawableObject {
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/60.png',
         'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/80.png',
         'img/7_statusbars/1_statusbar/1_statusbar_coin/green/100.png'
-    ]
-
+    ];
     percentage = 0;
 
     constructor() {
@@ -20,33 +19,7 @@ class StatusBarCoin extends DrawableObject {
         this.setPercentages(0);
     }
 
-    /**
-     * Sets the percentage of the coin's status bar and updates the displayed image accordingly.
-     * @param {number} percentage - The new percentage value to be set.
-     */
-    setPercentages(percentage) {
-        this.percentage = percentage;
-        let path = this.IMAGES[this.resolveImageIndex()];
-        this.img = this.imageCache[path];
-    }
-
-    /**
-     * Resolves the image index based on the current percentage.
-     * @returns {number} The index of the image to be displayed.
-     */
     resolveImageIndex() {
-        if (this.percentage == 5) {
-            return 5;
-        } else if (this.percentage == 4) {
-            return 4;
-        } else if (this.percentage == 3) {
-            return 3;
-        } else if (this.percentage == 2) {
-            return 2;
-        } else if (this.percentage == 1) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return this.resolveBottleCoinImageIndex();
     }
 }
