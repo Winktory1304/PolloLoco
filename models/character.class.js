@@ -49,6 +49,18 @@ class Character extends MovableObject {
         'img/2_character_pepe/4_hurt/H-42.png',
         'img/2_character_pepe/4_hurt/H-43.png'
     ];
+    IMAGES_DO_NOTHING = [
+        'img/2_character_pepe/1_idle/idle/I-1.png',
+        'img/2_character_pepe/1_idle/idle/I-2.png',
+        'img/2_character_pepe/1_idle/idle/I-3.png',
+        'img/2_character_pepe/1_idle/idle/I-4.png',
+        'img/2_character_pepe/1_idle/idle/I-5.png',
+        'img/2_character_pepe/1_idle/idle/I-6.png',
+        'img/2_character_pepe/1_idle/idle/I-7.png',
+        'img/2_character_pepe/1_idle/idle/I-8.png',
+        'img/2_character_pepe/1_idle/idle/I-9.png',
+        'img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
 
     deadAnimationPlayed = false;
     offset = {
@@ -59,50 +71,28 @@ class Character extends MovableObject {
     };
 
     constructor() {
-        super().loadImage('img/2_character_pepe/2_walk/W-21.png');
+        super().loadImage('img/2_character_pepe/1_idle/idle/I-1.png'); // Start with Do Nothing image
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
         this.loadImages(this.IMAGES_WAITING);
+        this.loadImages(this.IMAGES_DO_NOTHING);
         this.animate();
         this.applyGravity();
-        this.checkIdle();
+        this.lastMoveTime = Date.now();
+        this.idleAnimationStarted = false;
         this.deadAnimationPlayed = false;
         this.isJumpingAnimationPlaying = false; // Neuer Zustand für die Sprunganimation
-        this.jumpAnimationInterval = null; // Neue Variable für das Sprung-Intervall
+        this.currentAnimationInterval = null; // Neue Variable für das aktuelle Animationsintervall
     }
 
     /**
-     * Resets the idle timer and pauses the snore sound.
+     * Updates the last move time.
      */
-    resetIdleTimer() {
-        clearTimeout(this.idleTimer);
-        snoreSound.pause();
-        this.startIdleTimer();
-    }
-
-    /**
-     * Starts the idle timer which triggers the idle animation after a specified time.
-     */
-    startIdleTimer() {
-        this.idleTimer = setTimeout(() => {
-            snoreSound.play();
-            this.playIdleAnimation();
-        }, this.idleTime);
-    }
-
-    /**
-     * Plays the idle animation for the character.
-     */
-    playIdleAnimation() {
-        this.idleAnimationInterval = setInterval(() => {
-            if (snoreSound.paused) {
-                clearInterval(this.idleAnimationInterval);
-            } else {
-                this.playAnimation(this.IMAGES_WAITING);
-            }
-        }, 10000 / 60); // Adjust the interval time as needed
+    updateLastMoveTime() {
+        this.lastMoveTime = Date.now();
+        this.idleAnimationStarted = false; // Reset idle animation status
     }
 
     /**
@@ -131,18 +121,18 @@ class Character extends MovableObject {
         if (this.isMovingRight()) {
             this.moveRight();
             walkingSound.play();
-            this.resetIdleTimer();
+            this.updateLastMoveTime();
             this.otherDirection = false;
         }
         if (this.isMovingLeft()) {
             this.moveLeft();
             walkingSound.play();
-            this.resetIdleTimer();
+            this.updateLastMoveTime();
             this.otherDirection = true;
         }
         if (this.isJumping()) {
             this.jump();
-            this.resetIdleTimer();
+            this.updateLastMoveTime();
         }
     }
 
@@ -182,16 +172,21 @@ class Character extends MovableObject {
      */
     animateActions() {
         setInterval(() => {
+            const now = Date.now();
             if (this.isDead() && !this.deadAnimationPlayed) {
                 this.handleDeathAnimation();
             } else if (this.isHurt()) {
                 this.handleHurtAnimation();
             } else if (this.isAboveGround()) {
                 this.handleJumpingAnimation();
-            } else {
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.handleWalkingAnimation();
                 this.isJumpingAnimationPlaying = false;  // Setze Zustand zurück, wenn der Charakter den Boden berührt
                 this.stopJumpingAnimation(); // Stoppt das Sprung-Intervall
+            } else if (now - this.lastMoveTime > 5000 && !this.idleAnimationStarted) {
+                this.handleIdleAnimation();
+            } else if (now - this.lastMoveTime > 1) {
+                this.handleDoNothingAnimation();
             }
         }, 50);
     }
@@ -200,6 +195,7 @@ class Character extends MovableObject {
      * Handles the death animation of the character.
      */
     handleDeathAnimation() {
+        this.stopAllAnimations();
         this.playAnimation(this.IMAGES_DEAD);
         world.clearAllIntervals();
         endTheGameByLost();
@@ -210,15 +206,16 @@ class Character extends MovableObject {
      * Handles the hurt animation of the character.
      */
     handleHurtAnimation() {
+        this.stopAllAnimations();
         this.playAnimation(this.IMAGES_HURT);
-        this.resetIdleTimer();
+        this.updateLastMoveTime();
     }
 
     /**
      * Handles the jumping animation of the character.
      */
     startJumpingAnimation() {
-        this.jumpAnimationInterval = setInterval(() => {
+        this.currentAnimationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_JUMPING);
         }, 250); 
     }
@@ -227,9 +224,9 @@ class Character extends MovableObject {
      * Stops the jumping animation interval.
      */
     stopJumpingAnimation() {
-        if (this.jumpAnimationInterval) {
-            clearInterval(this.jumpAnimationInterval);
-            this.jumpAnimationInterval = null;
+        if (this.currentAnimationInterval) {
+            clearInterval(this.currentAnimationInterval);
+            this.currentAnimationInterval = null;
         }
     }
 
@@ -238,28 +235,68 @@ class Character extends MovableObject {
      */
     handleJumpingAnimation() {
         if (!this.isJumpingAnimationPlaying) {
+            this.stopAllAnimations();
             this.startJumpingAnimation();
             this.isJumpingAnimationPlaying = true;  
         }
     }
 
-
     /**
      * Handles the walking animation of the character.
      */
     handleWalkingAnimation() {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-            this.playAnimation(this.IMAGES_WALKING);
+        this.stopAllAnimations();
+        this.playAnimation(this.IMAGES_WALKING);
+    }
+
+    /**
+     * Handles the do-nothing animation of the character.
+     */
+    handleDoNothingAnimation() {
+        if (!this.idleAnimationStarted) { // Ensure idle animation is not already playing
+            this.stopAllAnimations();
+            this.playAnimation(this.IMAGES_DO_NOTHING);
         }
     }
 
     /**
-     * Checks if the character is idle and starts the idle timer.
+     * Handles the idle animation of the character.
      */
-    checkIdle() {
-        this.idleTimer = null;
-        this.idleTime = 3000;
+    handleIdleAnimation() {
+        this.stopAllAnimations();
+        this.playAnimation(this.IMAGES_WAITING);
+        this.idleAnimationStarted = true;
+        snoreSound.play();
+    }
 
-        this.startIdleTimer();
+    /**
+     * Stops all currently running animations.
+     */
+    stopAllAnimations() {
+        clearInterval(this.currentAnimationInterval);
+        this.currentAnimationInterval = null;
+        this.isJumpingAnimationPlaying = false;
+        this.idleAnimationStarted = false; // Reset idle animation status
+    }
+
+    /**
+     * Starts the game and manages the idle and do-nothing animations.
+     */
+    startGame() {
+        this.checkForIdle();
+    }
+
+    /**
+     * Checks for idle status and starts the appropriate animations.
+     */
+    checkForIdle() {
+        setInterval(() => {
+            const now = Date.now();
+            if (now - this.lastMoveTime > 5000 && !this.idleAnimationStarted) {
+                this.handleIdleAnimation();
+            } else if (now - this.lastMoveTime > 1) {
+                this.handleDoNothingAnimation();
+            }
+        }, 50);
     }
 }
