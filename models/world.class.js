@@ -208,30 +208,21 @@ class World {
      * Removes collided objects and enemies from the world.
      */
     checkCollisionBottleWithEnemy() {
-        let objectsToRemove = [];
-        let enemiesToRemove = [];
-
-        this.throwableObjects.forEach((throwableObject, index) => {
-            this.level.enemies.forEach((enemy) => {
+        this.throwableObjects = this.throwableObjects.filter((throwableObject, index) => {
+            return !this.level.enemies.some(enemy => {
                 if (enemy.isColliding(throwableObject) && !enemy.isDead()) {
+                    enemy instanceof Endboss ? enemy.hit() : enemy.hit(throwableObject.damage);
                     if (enemy instanceof Endboss) {
-                        enemy.hit(); // Call the hit method of Endboss
-                        this.statusBarBoss.setPercentages(enemy.energy); // Update the status bar
-                    } else {
-                        enemy.hit(throwableObject.damage);
+                        this.statusBarBoss.setPercentages(enemy.energy);
                     }
-                    objectsToRemove.push(index);
-                    enemiesToRemove.push(enemy);
+                    this.removeEnemyAtIndex(enemy);
+                    return true; // Remove throwableObject
                 }
+                return false;
             });
         });
-        objectsToRemove.sort((a, b) => b - a).forEach((index) => {
-            this.throwableObjects.splice(index, 1);
-        });
-        enemiesToRemove.forEach((enemy) => {
-            this.removeEnemyAtIndex(enemy);
-        });
     }
+    
 
     /**
      * Removes an enemy from the level's enemies array at the specified index.
