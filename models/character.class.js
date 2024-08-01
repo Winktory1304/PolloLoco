@@ -220,7 +220,7 @@ class Character extends MovableObject {
     startJumpingAnimation() {
         this.jumpAnimationInterval = setInterval(() => {
             this.playAnimation(this.IMAGES_JUMPING);
-        }, 250); // Intervallzeit für die Sprung-Animation
+        }, 250); 
     }
 
     /**
@@ -239,7 +239,7 @@ class Character extends MovableObject {
     handleJumpingAnimation() {
         if (!this.isJumpingAnimationPlaying) {
             this.startJumpingAnimation();
-            this.isJumpingAnimationPlaying = true;  // Setze Zustand, wenn Sprunganimation abgespielt wird
+            this.isJumpingAnimationPlaying = true;  
         }
     }
 
