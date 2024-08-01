@@ -270,13 +270,15 @@ class Character extends MovableObject {
     }
 
     /**
-     * Stops all currently running animations.
+     * Stops all currently running animations and sounds.
      */
     stopAllAnimations() {
         clearInterval(this.currentAnimationInterval);
         this.currentAnimationInterval = null;
         this.isJumpingAnimationPlaying = false;
         this.idleAnimationStarted = false; // Reset idle animation status
+        snoreSound.pause(); // Stop the snore sound
+        snoreSound.currentTime = 0; // Reset the snore sound
     }
 
     /**
@@ -300,3 +302,5 @@ class Character extends MovableObject {
         }, 50);
     }
 }
+
+
