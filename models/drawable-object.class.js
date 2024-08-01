@@ -7,18 +7,27 @@ class DrawableObject {
     height = 150;
     width = 100;
 
-    // Load a single image
+    /**
+     * Loads a single image and sets it as the object's image.
+     * @param {string} path - The path to the image to load.
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
     }
 
-    // Draw the object on the canvas
+    /**
+     * Draws the object on the canvas.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
-    // Draw the frame of the object (for debugging purposes)
+    /**
+     * Draws the frame of the object for debugging purposes.
+     * @param {CanvasRenderingContext2D} ctx - The canvas rendering context.
+     */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken) {
             ctx.beginPath();
@@ -26,7 +35,10 @@ class DrawableObject {
         }
     }
 
-    // Load multiple images
+    /**
+     * Loads multiple images into the image cache.
+     * @param {string[]} arr - An array of paths to the images to load.
+     */
     loadImages(arr) {
         arr.forEach((path) => {
             let img = new Image();
@@ -35,14 +47,20 @@ class DrawableObject {
         });
     }
 
-    // Sets the percentage and updates the displayed image
+    /**
+     * Sets the percentage and updates the displayed image accordingly.
+     * @param {number} percentage - The new percentage value to be set.
+     */
     setPercentages(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
         this.img = this.imageCache[path];
     }
 
-    // Resolve image index for health and boss bars
+    /**
+     * Resolves the image index for health and boss bars based on the current percentage.
+     * @returns {number} The index of the image to be displayed.
+     */
     resolveHealthBossImageIndex() {
         if (this.percentage == 100) {
             return 5;
@@ -59,7 +77,10 @@ class DrawableObject {
         }
     }
 
-    // Resolve image index for bottle and coin bars
+    /**
+     * Resolves the image index for bottle and coin bars based on the current percentage.
+     * @returns {number} The index of the image to be displayed.
+     */
     resolveBottleCoinImageIndex() {
         if (this.percentage == 5) {
             return 5;
