@@ -69,6 +69,8 @@ class Character extends MovableObject {
         this.applyGravity();
         this.checkIdle();
         this.deadAnimationPlayed = false;
+        this.isJumpingAnimationPlaying = false; // Neuer Zustand für die Sprunganimation
+        this.jumpAnimationInterval = null; // Neue Variable für das Sprung-Intervall
     }
 
     /**
@@ -189,10 +191,11 @@ class Character extends MovableObject {
             } else {
                 this.handleWalkingAnimation();
                 this.isJumpingAnimationPlaying = false;  // Setze Zustand zurück, wenn der Charakter den Boden berührt
+                this.stopJumpingAnimation(); // Stoppt das Sprung-Intervall
             }
         }, 50);
     }
-    
+
     /**
      * Handles the death animation of the character.
      */
@@ -202,7 +205,7 @@ class Character extends MovableObject {
         endTheGameByLost();
         this.deadAnimationPlayed = true;
     }
-    
+
     /**
      * Handles the hurt animation of the character.
      */
@@ -210,17 +213,37 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_HURT);
         this.resetIdleTimer();
     }
-    
+
+    /**
+     * Handles the jumping animation of the character.
+     */
+    startJumpingAnimation() {
+        this.jumpAnimationInterval = setInterval(() => {
+            this.playAnimation(this.IMAGES_JUMPING);
+        }, 100); // Intervallzeit für die Sprung-Animation
+    }
+
+    /**
+     * Stops the jumping animation interval.
+     */
+    stopJumpingAnimation() {
+        if (this.jumpAnimationInterval) {
+            clearInterval(this.jumpAnimationInterval);
+            this.jumpAnimationInterval = null;
+        }
+    }
+
     /**
      * Handles the jumping animation of the character.
      */
     handleJumpingAnimation() {
         if (!this.isJumpingAnimationPlaying) {
-            this.playAnimation(this.IMAGES_JUMPING);
+            this.startJumpingAnimation();
             this.isJumpingAnimationPlaying = true;  // Setze Zustand, wenn Sprunganimation abgespielt wird
         }
     }
-    
+
+
     /**
      * Handles the walking animation of the character.
      */
@@ -229,7 +252,7 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_WALKING);
         }
     }
-    
+
     /**
      * Checks if the character is idle and starts the idle timer.
      */
