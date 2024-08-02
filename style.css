@@ -460,3 +460,21 @@ h1 {
 .back-button:focus {
     outline: none;
 }
+
+/* Landscape */
+@media only screen and (min-device-width: 1366px) and (max-device-height: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+    .btn-mobile-wrapper {
+        display: flex !important;
+    }
+    h1 {
+        display: none;
+    }
+}
+
+/* Portrait */
+@media only screen and (min-device-width: 1024px) and (max-device-height: 1366px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) {
+    .rotateMessage {
+        display: flex; /* Rotate Message wird im Portrait-Modus für Geräte mit den angegebenen Abmessungen angezeigt */
+    }
+}
+

@@ -53,8 +53,7 @@ class Keyboard {
     bindButtonEvent(buttonId, action) {
         const element = document.getElementById(buttonId);
         if (element) {
-            element.addEventListener('touchstart', (e) => {
-                e.preventDefault();
+            element.addEventListener('touchstart', (e) => {               
                 this[action] = true;
             }, { passive: true }); // Use passive option for better performance
 
